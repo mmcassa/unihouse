@@ -1,0 +1,30 @@
+{
+  "name": "University Housing Staff",
+  "description": "Assistance scripts for housing staff",
+  "version": "1.0.5",
+  "manifest_version": 3,
+  "background": {
+    "service_worker" : "scripts/conf_group_select_all_booking.js"
+  },
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "scripting", 
+    "storage",
+    "tabs", 
+    "webNavigation"
+  ],
+  "content_scripts" : [
+    {
+      "js" : ["scripts/content.js","scripts/create_elements.js"],
+      "matches" : [
+        "https://uga.starrezhousing.com/StarRezWeb/*"
+      ]
+    }
+  ],
+  "host_permissions" : [ "https://uga.starrezhousing.com/*"],
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "icons/favicon.png"
+  }
+}

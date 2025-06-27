@@ -49,6 +49,12 @@
       },
       "defaultConfiguration": "production"
     },
+    "postbuild": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/copy-extension-assets.js"
+      }
+    },
     "serve": {
       "continuous": true,
       "executor": "@angular-devkit/build-angular:dev-server",
