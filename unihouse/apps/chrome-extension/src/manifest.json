@@ -4,7 +4,7 @@
   "version": "1.0.5",
   "manifest_version": 3,
   "background": {
-    "service_worker" : "scripts/conf_group_select_all_booking.js"
+    "service_worker" : "background.js"
   },
   "permissions": [
     "activeTab",
@@ -16,7 +16,7 @@
   ],
   "content_scripts" : [
     {
-      "js" : ["scripts/content.js","scripts/create_elements.js"],
+      "js" : ["content_scripts/content.js","content_scripts/create_elements.js"],
       "matches" : [
         "https://uga.starrezhousing.com/StarRezWeb/*"
       ]
@@ -24,7 +24,7 @@
   ],
   "host_permissions" : [ "https://uga.starrezhousing.com/*"],
   "action": {
-    "default_popup": "hello.html",
-    "default_icon": "icons/favicon.png"
+    "default_popup": "index.html",
+    "default_icon": "favicon.ico"
   }
 }

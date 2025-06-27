@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const srcDir = path.join(__dirname, '../apps/chrome-extension/src');
-const distDir = path.join(__dirname, '../dist/apps/chrome-extension');
+const distDir = path.join(__dirname, '../dist/apps/chrome-extension/browser');
 
 const filesToCopy = ['manifest.json', 'background.js', 'content.js', 'icon.png'];
 const dirsToCopy = ['content_scripts'];
