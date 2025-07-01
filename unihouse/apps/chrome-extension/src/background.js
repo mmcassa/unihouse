@@ -1,5 +1,5 @@
 /**
- * 
+ * When a web nav is completed and directed to a Conference Booking page in StarRez, add the Toggle All button
  */
 chrome.webNavigation.onCompleted.addListener(function(details) {
 
@@ -9,7 +9,7 @@ chrome.webNavigation.onCompleted.addListener(function(details) {
 });
 
 /**
- * 
+ * When a URL is updated (within an SAP) to a Conference Booking page in StarRez, add the Toggle All button
  */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (  changeInfo.url 
@@ -41,3 +41,23 @@ function add_script_to_group_booking_tab(tabId) {
         })
         .then(() => console.log("injected script"));
 }
+
+
+chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+  const tab = await chrome.tabs.get(tabId);
+  if (tab.url) {
+    const url = new URL(tab.url);
+    const path = url.pathname + url.search + url.hash;
+
+    chrome.storage.local.set({ currentPath: path });
+  }
+});
+
+// Optional: update on tab URL change too
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+    const url = new URL(changeInfo.url);
+    const path = url.pathname + url.search + url.hash;
+    chrome.storage.local.set({ currentPath: path });
+  }
+});
