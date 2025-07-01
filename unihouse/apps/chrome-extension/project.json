@@ -8,21 +8,34 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/chrome-extension",
         "index": "apps/chrome-extension/src/index.html",
         "browser": "apps/chrome-extension/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/chrome-extension/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/chrome-extension/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
           }
         ],
-        "styles": ["apps/chrome-extension/src/styles.scss"],
+        "styles": [
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "apps/chrome-extension/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -79,7 +92,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../coverage/apps/chrome-extension"
       }
