@@ -25,6 +25,6 @@
   "host_permissions" : [ "https://uga.starrezhousing.com/*"],
   "action": {
     "default_popup": "index.html",
-    "default_icon": "favicon.ico"
+    "default_icon": "favicon.png"
   }
 }
