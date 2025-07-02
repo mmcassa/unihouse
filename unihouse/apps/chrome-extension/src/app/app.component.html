@@ -1,16 +1,17 @@
 <tui-root>
 
-<!-- <button (click)="test()">Try this</button> -->
-<div id="welcome">
-    
-    <img src="favicon.png"/>
-    <div>
-    <h1>UniHouse</h1>
-    <span>Knock, knock here comes progress!</span>
-    </div>
-</div>
+<app-navbar></app-navbar>
+@if( active_tab > -1) {
+    <button tuiButton (click)="test()">Try this</button>
+}
 <router-outlet></router-outlet>
 <div>
+    <header tuiHeader="h4">
+        <hgroup tuiTitle>
+            <h1>Welcome</h1>
+            <p tuiSubtitle>{{username}}</p>
+        </hgroup>
+    </header>
     <!-- <div *ngTemplateOutlet="testing"></div> -->
 </div>
 

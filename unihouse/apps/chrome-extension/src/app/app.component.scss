@@ -1,41 +1,4 @@
-#welcome {
-    background: #BA0C2F;
-  background: linear-gradient(126deg,rgba(186, 12, 47, 1) 0%, rgba(158, 162, 162, 1) 20%, rgba(255, 255, 255, 1) 100%);
-  box-shadow:  -10px -35px 40px white inset, 200px -52px 40px #dbdbdb inset,-50px -50px 25px rgb(243, 239, 239) inset;
-  border-bottom: 1px solid rgba(158, 162, 162,.5);
-  vertical-align: text-top;
-  position: absolute;
-  width: 100%;
 
-  div {
-    display: inline-block;
-    padding-left: .5rem;
-  }
-
-  img {
-    height: 35px;
-    opacity: 75%;
-    display: inline-block;
-    padding: auto 0;
-    position: relative;
-  }
-}
-#welcome h1 {
-  padding-top: .5rem;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1;
-    
-}
-#welcome span {
-  display: block;
-  font-size: .9rem;
-  font-weight: 300;
-  line-height: 1.75rem;
-}
 
 #selection-form {
   display: block;
