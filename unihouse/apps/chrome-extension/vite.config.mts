@@ -7,7 +7,16 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/chrome-extension',
-  plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  plugins: [
+    angular({
+      
+    }), 
+    nxViteTsPaths(), 
+    nxCopyAssetsPlugin(['*.md'])
+  ],
+  build: {
+    cssCodeSplit: false
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],
