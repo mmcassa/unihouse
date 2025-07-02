@@ -2,23 +2,24 @@
  * When a web nav is completed and directed to a Conference Booking page in StarRez, add the Toggle All button
  */
 chrome.webNavigation.onCompleted.addListener(function(details) {
-
-  if (  match_group_bookings_tab_url(details.url) ) {
-    add_script_to_group_booking_tab(details.tabId)
-  }
+  actions_on_url(details.url,details.tabId);
 });
 
 /**
  * When a URL is updated (within an SAP) to a Conference Booking page in StarRez, add the Toggle All button
  */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if (  changeInfo.url 
-        && match_group_bookings_tab_url(changeInfo.url)
-        ) {
-        add_script_to_group_booking_tab(tabId);
-        
-    }
+  if (  changeInfo.url ) { actions_on_url(changeInfo.url,tabId) } 
 });
+
+function actions_on_url(url,tabId) {
+  // add toggle all button
+  if (  match_group_bookings_tab_url(url)
+      ) {
+      add_script_to_group_booking_tab(tabId);
+      
+  }  
+}
 
 /**
  * 
