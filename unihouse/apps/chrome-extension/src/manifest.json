@@ -16,7 +16,10 @@
   ],
   "content_scripts" : [
     {
-      "js" : ["content_scripts/content.js","content_scripts/create_elements.js"],
+      "js" : [
+        "content_scripts/content.js",
+        "content_scripts/create_elements.js"
+      ],
       "matches" : [
         "https://uga.starrezhousing.com/StarRezWeb/*"
       ]
