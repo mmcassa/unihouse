@@ -28,11 +28,15 @@ export class UserService {
     if (this._user_status.value === 'pending') { return; }
     this._user_status.next('pending');
     this.starrez_tab.send_message({'action' : 'fetch_credentials'}, (response) => 
-      this.store_credentials_from_sr(response));  
+      this.store_credentials_from_sr(response)).catch(err => {
+        console.error(err);
+        this._user_status.next('unauthenticated');
+      });  
   }
 
   private store_credentials_from_sr(response: any) {
-      if (typeof response === 'object'){
+      console.log(typeof response,response)
+      if (typeof response === 'object' && response != null){
         this.set_credentials(response);
         this._user_status.next('authenticated');
         
