@@ -17,8 +17,5 @@ export class Transaction {
     delete() {
         return this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/delete/${this.id}`,null).pipe();
     }
-
-
-
-
+    
 }

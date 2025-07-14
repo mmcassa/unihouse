@@ -62,29 +62,18 @@ export class BulkDeleteTransactions {
       }, error: err => {
         console.log(err);
       }    })
-    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
-    // if (tab.id !== undefined) {
-    //   chrome.tabs.sendMessage(
-    //     tab.id, 
-    //     { 
-    //       action: "fetch_transaction_list", 
-    //       body: transactions 
-    //     },
-    //     {}, 
-    //     (response) => {
-    //       // if (typeof response === 'object' && typeof response['data'] === 'string')
-    //       // this.update_username(response.data);
-    //       console.log(response);
-    //     });
-    // } else {
-    //   console.log('no tab')
-    // }
   } 
 
   protected submit_selected() {
     this.selected_transactions.forEach( t => {
       let to: Transaction = new Transaction({'id' : t['TransactionID']});
-      to.delete();
+      to.delete().subscribe({
+        next: res => {
+          console.log('yes')
+        }, error: err => {
+          console.error(err)
+        }
+      });
     })
   }
 }
