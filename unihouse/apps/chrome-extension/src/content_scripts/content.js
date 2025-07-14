@@ -190,7 +190,7 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
               console.log('responding with creds: ',creds)
               sendResponse(creds); // NOT JSON.stringify
           } else {
-              sendResponse({ error: 'No credentials' });
+              sendResponse(null);
           }
         });
       } else {
