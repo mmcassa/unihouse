@@ -16,13 +16,7 @@ export class UserService {
   private _user_status: BehaviorSubject<UserStatus> = new BehaviorSubject('init' as UserStatus);
 
   constructor() { 
-    let saved_credentials = this.storage.get(EXT_STARREZ_USER_STORAGE_TOKEN);
-    if (saved_credentials != null) {
-      this._user = saved_credentials; 
-      this._user_status.next('authenticated');
-    } else {
-      
-    }
+    this.load_credentials_from_storage();
   }
 
   /**
@@ -32,17 +26,28 @@ export class UserService {
   private execute_get_credentials_commands() {
     if (this._user_status.value === 'pending') { return; }
     this._user_status.next('pending');
-    this.starrez_tab.send_message({'action' : 'fetch_credentials'},(response) => {
-      if (typeof response === 'object' && typeof response['data'] === 'object'){
-        this._user = response.data;
+    this.starrez_tab.send_message({'action' : 'fetch_credentials'}, (response) => 
+      this.store_credentials_from_sr(response));  
+  }
+
+  private store_credentials_from_sr(response: any) {
+      if (typeof response === 'object'){
+        this.set_credentials(response);
         this._user_status.next('authenticated');
         
       } else {
-        
-      this._user_status.next('unauthenticated');
+        this._user_status.next('unauthenticated');
       }
-      console.log(this._user);
-    });
+  }
+
+  private load_credentials_from_storage() {
+    let saved_credentials = this.storage.get(EXT_STARREZ_USER_STORAGE_TOKEN);
+    if (saved_credentials != null) {
+      this._user = saved_credentials; 
+      this._user_status.next('authenticated');
+    } else {
+      
+    }
   }
 
   async load_credentials_from_sr_web() {
@@ -58,7 +63,11 @@ export class UserService {
 
   private set_credentials(creds: any) {
     this._user = creds;
-    this.storage.set(EXT_STARREZ_USER_STORAGE_TOKEN,creds);
+    if (creds == null) {
+      this.storage.remove(EXT_STARREZ_USER_STORAGE_TOKEN);
+    } else {
+      this.storage.set(EXT_STARREZ_USER_STORAGE_TOKEN,creds);
+    }
   }
 
   get starrez_api_credentials() {
@@ -71,5 +80,12 @@ export class UserService {
 
   get statusAsObservable() {
     return this._user_status.asObservable();
+  }
+
+  public clear_user_settings() {
+    this._user_status.next('pending');
+    this.set_credentials(null);
+    this._user_status.next('unauthenticated');
+
   }
 }
