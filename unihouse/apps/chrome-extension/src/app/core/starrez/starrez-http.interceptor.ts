@@ -1,5 +1,5 @@
 // auth-header.interceptor.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpHandler,
@@ -11,7 +11,9 @@ import { UserService } from '../user/user.service'; // adjust path as needed
 
 @Injectable()
 export class AuthHeaderInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService) {}
+  private userService = inject(UserService);
+
+  constructor() {}
 
   intercept(
     req: HttpRequest<any>,
@@ -28,7 +30,8 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
         headers = headers.set('StarRezPassword',credentials.api_key);
       modifiedReq = req.clone({ headers });
     }
-
+    console.log(credentials)
+    console.log(modifiedReq)
     return next.handle(modifiedReq);
   }
 }

@@ -49,7 +49,7 @@ export class BulkDeleteTransactions {
     if (Array.isArray(transactions) )
     query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount 
         FROM transaction where transactionid in ( ${transactions.join(',')} )`
-    this.http.post(`https://uga.starrezhousing.edu/StarRezREST/services/query/`,query).subscribe({
+    this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
       next: res => {
         console.log(res);
       }, error: err => {

@@ -3,7 +3,7 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { AuthHeaderInterceptor } from "./core/starrez/starrez-http.interceptor";
 
 export const appConfig: ApplicationConfig = {
@@ -11,7 +11,8 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
-        provideEventPlugins(),{
+        provideEventPlugins(),
+        provideHttpClient(withInterceptorsFromDi()),{
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHeaderInterceptor,
       multi: true

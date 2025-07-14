@@ -12,6 +12,7 @@ const EXT_STARREZ_USER_STORAGE_TOKEN = 'chr_ex_sr_user_credentials_obj'
 export class UserService {
   storage = inject(LocalStorageService);
   starrez_tab = inject(StarrezTabTracker);
+  
   private _user!: UserCredentialsInterface;
   private _user_status: BehaviorSubject<UserStatus> = new BehaviorSubject('init' as UserStatus);
 

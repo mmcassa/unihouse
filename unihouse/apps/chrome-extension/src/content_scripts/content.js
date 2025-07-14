@@ -60,7 +60,7 @@ async function create_api_key() {
   await sleep(1000);
   save_api_key_button = await waitForElementWithMutationObserver('div.ui-btn-save[title="Save Token"]');
   save_api_key_button.click();
-  return (api_key_value,token_name);
+  return [api_key_value,token_name];
 
 }
 
@@ -145,11 +145,13 @@ async function fetch_credentials() {
       console.error('Error while traversing DOM for full_name value.')
       return null;
     }
-    create_api_key().then((res,token) => {
-        if (typeof res === 'string') {
-          credentials['api_key'] = res;
-          credentials['token_name'] = token;
-          console.log(credentials);
+    create_api_key().then((res) => {
+        if (Array.isArray(res) 
+            && typeof res[0] === 'string' 
+            && typeof res[1] === 'string'
+          ) {
+          credentials['api_key'] = res[0];
+          credentials['token_name'] = res[1];
           stored_credentials = credentials;
           // user_service_port.postMessage(credentials);
           return credentials;
@@ -210,11 +212,5 @@ chrome.runtime.onMessage.addListener(async function(request, sender, sendRespons
 });
 console.log('listening');
 
-// fetchAndParseDirectQuery(
-//       `SELECT transactionid, description, comments,chargeitem,chargegroup,amount 
-//         FROM transaction where transactionid in ( 838791 )`
-//     ).then((data) => {
-//       console.log(data)
-//     })
 
 
