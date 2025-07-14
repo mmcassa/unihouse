@@ -1,12 +1,16 @@
-#welcome {
-    background: #BA0C2F;
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background: #BA0C2F;
   background: linear-gradient(126deg,rgba(186, 12, 47, 1) 0%, rgba(158, 162, 162, 1) 20%, rgba(255, 255, 255, 1) 100%);
   box-shadow:  -10px -35px 40px white inset, 200px -52px 40px #dbdbdb inset,-50px -50px 25px rgb(243, 239, 239) inset;
   border-bottom: 1px solid rgba(158, 162, 162,.5);
   // display: block;
   width: 100%;
-  padding-left: 5px;
+  padding: 0px 5px;
 
+}
+#welcome {
   div {
     display: inline-block;
     padding-left: .5rem;
