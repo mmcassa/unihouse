@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { Navbar } from "./nav/navbar";
+import { BulkDeleteTransactions } from "./transactions/bulk-delete-transactions";
+import { UserService } from "./core/user/user.service";
+import { StarrezTabTracker } from "./core/starrez/starrez-tab-tracker.service";
 @Component({
   imports: [
     CommonModule,
@@ -16,7 +19,8 @@ import { Navbar } from "./nav/navbar";
     TuiNotification,
     TuiTextfield,
     TuiTitle,
-    Navbar
+    Navbar,
+    BulkDeleteTransactions
     
   ],
   selector: 'app-root',
@@ -31,8 +35,18 @@ export class AppComponent {
   active_url: string = '';
   private fb: FormBuilder = inject(FormBuilder);
   form: FormGroup;
+  user_service = inject(UserService);
+  tab_service = inject(StarrezTabTracker);
+  tabid: number = -1;
 
   constructor() {
+    this.tab_service.tab_status.subscribe({
+      next: (status) => {
+        if (status === 'active') {
+          this.tabid = this.tab_service.tab_id ?? -1;
+        }
+      }
+    })
     this.form = this.fb.group({
         "basic" : [],
         "email" : [],
@@ -45,42 +59,50 @@ export class AppComponent {
       this.username = storage_user;
     }
     
-    // load current tab
-    chrome.tabs.getCurrent().then(async (tab) => {
-      this.active_tab = tab?.id ?? -1;
-      this.active_url = tab?.url ?? '';
-      // update user info 
-          if (
-            tab !== undefined 
-            && tab.id !== undefined 
-            && this.match_sr_web_url(tab?.url ?? '')
-          ) {
-              chrome.tabs.sendMessage(tab.id, { action: "get_user" },{}, (response) => {
-              if (typeof response === 'object' && typeof response['data'] === 'string')
-                this.update_username(response.data);
-            });
-          }
-    });
-
-    // start listener to update active_tab
-    chrome.tabs.onActivated.addListener(async (activeInfo) => {
-        this.active_tab = activeInfo.tabId;
-        chrome.tabs.get(this.active_tab).then((tab) => {
-          this.active_url = tab.url ?? '';
-
+    // try/catch for development preview without building 
+    try {
+        // load current tab
+        chrome.tabs.getCurrent().then(async (tab) => {
+          this.active_tab = tab?.id ?? -1;
+          this.active_url = tab?.url ?? '';
           // update user info 
-          if (activeInfo.tabId && this.match_sr_web_url(tab.url ?? '')) {
-              chrome.tabs.sendMessage(activeInfo.tabId, { action: "get_user" },{}, (response) => {
-              if (typeof response === 'object' && typeof response['data'] === 'string')
-                this.update_username(response.data);
-            });
-          }
+              if (
+                tab !== undefined 
+                && tab.id !== undefined 
+                && this.match_sr_web_url(tab?.url ?? '')
+              ) {
+                  chrome.tabs.sendMessage(tab.id, { action: "get_user" },{}, (response) => {
+                  if (typeof response === 'object' && typeof response['data'] === 'string')
+                    this.update_username(response.data);
+                });
+              }
         });
 
+        // start listener to update active_tab
+        chrome.tabs.onActivated.addListener(async (activeInfo) => {
+            this.active_tab = activeInfo.tabId;
+            chrome.tabs.get(this.active_tab).then((tab) => {
+              this.active_url = tab.url ?? '';
+
+              // update user info 
+              if (activeInfo.tabId && this.match_sr_web_url(tab.url ?? '')) {
+                chrome.tabs.sendMessage(activeInfo.tabId, 
+                  { action: "get_user" },
+                  {}, 
+                  (response) => {
+                    if (typeof response === 'object' && typeof response['data'] === 'string')
+                      this.update_username(response.data);
+                  }
+                );
+              }
+            });
 
 
-      });
 
+          });
+    } catch {
+
+    }
     
   }
 

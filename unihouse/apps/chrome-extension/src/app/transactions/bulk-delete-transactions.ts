@@ -1,0 +1,86 @@
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TuiButton, TuiDataList, TuiHint, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import {TuiStepper, TuiTextarea, TuiTooltip} from '@taiga-ui/kit';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-bulk-delete-transactions',
+  imports: [
+    CommonModule,
+    TuiTitle,
+    TuiButton,
+    TuiStepper,
+    TuiIcon,
+    TuiTextfield,
+    TuiTextarea,
+    TuiDataList,
+    ReactiveFormsModule,
+  ],
+  templateUrl: './bulk-delete-transactions.html',
+  styleUrl: './bulk-delete-transactions.scss',
+})
+export class BulkDeleteTransactions {
+
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+  protected form: FormGroup;
+  protected loading_transactions: boolean = false;
+  protected pending_submit_complete: boolean = false;
+
+  constructor() {
+    this.form = this.fb.group({
+      "transactions" : []
+    })
+  }
+
+  protected async load_transactions() {
+    let transactions = this.form.controls['transactions'].value; 
+
+    if (transactions !== undefined && typeof transactions == 'string' && transactions.length > 0) {
+      this.form.controls['transactions'].setValue(transactions.replace('/[\r\n]/g',''));
+      transactions = transactions.split(',');
+    } else {
+      // throw error
+      return;
+    }
+    let query: string = '';
+    if (Array.isArray(transactions) )
+    query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount 
+        FROM transaction where transactionid in ( ${transactions.join(',')} )`
+    this.http.post(`https://uga.starrezhousing.edu/StarRezREST/services/query/`,query).subscribe({
+      next: res => {
+        console.log(res);
+      }, error: err => {
+        console.log(err)
+      }    })
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
+    if (tab.id !== undefined) {
+      chrome.tabs.sendMessage(
+        tab.id, 
+        { 
+          action: "fetch_transaction_list", 
+          body: transactions 
+        },
+        {}, 
+        (response) => {
+          // if (typeof response === 'object' && typeof response['data'] === 'string')
+          // this.update_username(response.data);
+          console.log(response);
+        });
+    } else {
+      console.log('no tab')
+    }
+  } 
+
+  protected submit_selected() {
+    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
+    // if (tab.id !== undefined) {
+    //   chrome.tabs.sendMessage(tab.id, { action: "get_user" },{}, (response) => {
+    //       if (typeof response === 'object' && typeof response['data'] === 'string')
+    //         this.update_username(response.data);
+    //     });
+    // }
+  }
+}

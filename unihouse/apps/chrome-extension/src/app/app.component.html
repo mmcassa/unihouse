@@ -4,16 +4,18 @@
 @if( active_tab > -1) {
     <button tuiButton (click)="test()">Try this</button>
 }
-<router-outlet></router-outlet>
 <div>
     <header tuiHeader="h4">
         <hgroup tuiTitle>
             <h1>Welcome</h1>
-            <p tuiSubtitle>{{username}}</p>
+            <p tuiSubtitle>{{username}} - {{tabid}}</p>
         </hgroup>
     </header>
     <!-- <div *ngTemplateOutlet="testing"></div> -->
 </div>
+<app-bulk-delete-transactions></app-bulk-delete-transactions>
+<router-outlet></router-outlet>
+
 
 <ng-template #testing>
 <form

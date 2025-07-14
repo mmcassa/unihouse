@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+    <hgroup tuiTitle>
+    <h4 >Bulk Delete Transactions</h4>
+    <div tuiSubtitle>
+        Drop in a list of transactions to be deleted, confirm they are correct and... delete!
+    </div>
+    </hgroup>
+    <hr style="width:100%;">
+    <tui-textfield>
+        <label 
+            tuiLabel 
+            >
+            Place your list of transactionids here (CSV format)
+        </label>
+        <textarea 
+            (keydown.enter)="load_transactions()"
+            formControlName="transactions"
+            placeholder="e.g., 123554,124392,381902" 
+            tuiTextarea>
+        </textarea>
+        <tui-icon
+            icon="@tui.arrow-big-down"
+            (click)="load_transactions()"
+        ></tui-icon>
+    </tui-textfield>
+    <hr style="width:100%;">
+
+
+    <button size="s" tuiButton>Delete</button>
+</form>
