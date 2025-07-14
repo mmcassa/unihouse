@@ -22,7 +22,6 @@ import { StarrezTrackerIcon } from "./core/starrez/starrez-tracker-icon/starrez-
     TuiTitle,
     Navbar,
     BulkDeleteTransactions,
-    StarrezTrackerIcon
     
   ],
   selector: 'app-root',

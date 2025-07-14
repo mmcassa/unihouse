@@ -4,6 +4,7 @@ import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import { UserService } from '../core/user/user.service';
 import { UserStatus } from '../core/user/user.utils';
 import { InitialsAvatar } from '@unihouse/core'
+import { StarrezTrackerIcon } from '../core/starrez/starrez-tracker-icon/starrez-tracker-icon';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,8 @@ import { InitialsAvatar } from '@unihouse/core'
     CommonModule,
     TuiButton,
     TuiLoader,
-    InitialsAvatar
+    InitialsAvatar,
+    StarrezTrackerIcon
     
   ],
   templateUrl: './navbar.html',
