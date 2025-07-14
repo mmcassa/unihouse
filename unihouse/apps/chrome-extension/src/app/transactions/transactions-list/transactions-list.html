@@ -5,7 +5,7 @@
                 [item_value]="t" 
                 (toggled)="on_toggled($event,t)"
             >
-                {{t['TransactionID']}} - {{t['Description']}}
+                {{t['Amount']}} : {{t['TransactionID']}} ({{t['ChargeGroup']}}) - {{t['Description']}}
             </uh-list-item>
         </li>
     }
