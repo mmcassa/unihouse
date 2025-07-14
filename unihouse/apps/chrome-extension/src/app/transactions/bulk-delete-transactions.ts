@@ -66,12 +66,13 @@ export class BulkDeleteTransactions {
 
   protected submit_selected() {
     this.selected_transactions.forEach( t => {
+      console.log(t)
       let to: Transaction = new Transaction({'id' : t['TransactionID']});
-      to.delete().subscribe({
+      this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/delete/transaction/${to.id}`,null).subscribe({
         next: res => {
           console.log('yes')
         }, error: err => {
-          console.error(err)
+          console.error('test',err)
         }
       });
     })

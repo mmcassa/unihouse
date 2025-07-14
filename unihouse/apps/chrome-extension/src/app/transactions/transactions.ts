@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 
 
 export class Transaction {
-    private http = inject(HttpClient);
+    // private http = inject(HttpClient);
     id: number = -1;
 
     constructor(options?: { [key: string]: any}) {
@@ -14,8 +14,8 @@ export class Transaction {
         }
     }
 
-    delete() {
-        return this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/delete/${this.id}`,null).pipe();
-    }
-    
+    // delete() {
+    //     return this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/delete/transaction/${this.id}`,null).pipe();
+    // }
+
 }
