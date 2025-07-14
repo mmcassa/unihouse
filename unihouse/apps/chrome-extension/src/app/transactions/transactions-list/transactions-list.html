@@ -1,1 +1,13 @@
-<p>transactions-list works!</p>
+<ul>
+    @for(t of transactions(); track t['TransactionID']) {
+        <li>
+            <uh-list-item 
+                [item_value]="t" 
+                (toggled)="on_toggled($event,t)"
+            >
+                {{t['TransactionID']}} - {{t['Description']}}
+            </uh-list-item>
+        </li>
+    }
+    {{ selected.length }}
+</ul>

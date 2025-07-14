@@ -24,7 +24,16 @@
         ></tui-icon>
     </tui-textfield>
     <hr style="width:100%;">
+    @if( sr_parsed_transactions.length > 0) {
+        <app-transactions-list [transactions]="sr_parsed_transactions" (updated)="selected_transactions = $event"></app-transactions-list>
+    }
 
-
-    <button size="s" tuiButton>Delete</button>
+    <button 
+        size="s" 
+        tuiButton 
+        [disabled]="selected_transactions.length === 0"
+        (click)="submit_selected()"
+    >
+        Delete
+    </button>
 </form>

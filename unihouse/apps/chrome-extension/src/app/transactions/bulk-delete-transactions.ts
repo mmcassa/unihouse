@@ -4,6 +4,9 @@ import { TuiButton, TuiDataList, TuiHint, TuiIcon, TuiTextfield, TuiTitle } from
 import {TuiStepper, TuiTextarea, TuiTooltip} from '@taiga-ui/kit';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { TransactionsList } from './transactions-list/transactions-list';
+import { Observable } from 'rxjs';
+import { Transaction } from './transactions';
 
 @Component({
   selector: 'app-bulk-delete-transactions',
@@ -17,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
     TuiTextarea,
     TuiDataList,
     ReactiveFormsModule,
+    TransactionsList
   ],
   templateUrl: './bulk-delete-transactions.html',
   styleUrl: './bulk-delete-transactions.scss',
@@ -28,6 +32,8 @@ export class BulkDeleteTransactions {
   protected form: FormGroup;
   protected loading_transactions: boolean = false;
   protected pending_submit_complete: boolean = false;
+  protected sr_parsed_transactions: any[] = [];
+  protected selected_transactions: any[] = [];
 
   constructor() {
     this.form = this.fb.group({
@@ -49,38 +55,36 @@ export class BulkDeleteTransactions {
     if (Array.isArray(transactions) )
     query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount 
         FROM transaction where transactionid in ( ${transactions.join(',')} )`
-    this.http.post(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
-      next: res => {
+    this.http.post<any[]>(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
+      next: (res) => {
         console.log(res);
+        this.sr_parsed_transactions = res;
       }, error: err => {
-        console.log(err)
+        console.log(err);
       }    })
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
-    if (tab.id !== undefined) {
-      chrome.tabs.sendMessage(
-        tab.id, 
-        { 
-          action: "fetch_transaction_list", 
-          body: transactions 
-        },
-        {}, 
-        (response) => {
-          // if (typeof response === 'object' && typeof response['data'] === 'string')
-          // this.update_username(response.data);
-          console.log(response);
-        });
-    } else {
-      console.log('no tab')
-    }
+    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
+    // if (tab.id !== undefined) {
+    //   chrome.tabs.sendMessage(
+    //     tab.id, 
+    //     { 
+    //       action: "fetch_transaction_list", 
+    //       body: transactions 
+    //     },
+    //     {}, 
+    //     (response) => {
+    //       // if (typeof response === 'object' && typeof response['data'] === 'string')
+    //       // this.update_username(response.data);
+    //       console.log(response);
+    //     });
+    // } else {
+    //   console.log('no tab')
+    // }
   } 
 
   protected submit_selected() {
-    // const [tab] = await chrome.tabs.query({ active: true, currentWindow: true, });
-    // if (tab.id !== undefined) {
-    //   chrome.tabs.sendMessage(tab.id, { action: "get_user" },{}, (response) => {
-    //       if (typeof response === 'object' && typeof response['data'] === 'string')
-    //         this.update_username(response.data);
-    //     });
-    // }
+    this.selected_transactions.forEach( t => {
+      let to: Transaction = new Transaction({'id' : t['TransactionID']});
+      to.delete();
+    })
   }
 }

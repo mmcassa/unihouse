@@ -2,12 +2,16 @@ import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 
 
-class Transaction {
+export class Transaction {
     private http = inject(HttpClient);
     id: number = -1;
 
-    constructor() {
-
+    constructor(options?: { [key: string]: any}) {
+        if (options) {
+            if (Object.keys(options).includes('id')) {
+                this.id = options['id'];
+            }
+        }
     }
 
     delete() {
