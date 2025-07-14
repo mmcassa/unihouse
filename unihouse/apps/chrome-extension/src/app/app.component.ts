@@ -7,6 +7,7 @@ import { Navbar } from "./nav/navbar";
 import { BulkDeleteTransactions } from "./transactions/bulk-delete-transactions";
 import { UserService } from "./core/user/user.service";
 import { StarrezTabTracker } from "./core/starrez/starrez-tab-tracker.service";
+import { StarrezTrackerIcon } from "./core/starrez/starrez-tracker-icon/starrez-tracker-icon";
 @Component({
   imports: [
     CommonModule,
@@ -20,7 +21,8 @@ import { StarrezTabTracker } from "./core/starrez/starrez-tab-tracker.service";
     TuiTextfield,
     TuiTitle,
     Navbar,
-    BulkDeleteTransactions
+    BulkDeleteTransactions,
+    StarrezTrackerIcon
     
   ],
   selector: 'app-root',
