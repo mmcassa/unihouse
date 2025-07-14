@@ -1,7 +1,7 @@
 import { Component, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TuiAvatar } from '@taiga-ui/kit';
-import { TuiAutoColorPipe } from '@taiga-ui/core';
+import { TuiAvatar, TuiAvatarOptions } from '@taiga-ui/kit';
+import { TuiAutoColorPipe, TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 
 @Component({
   selector: 'uc-initials-avatar',
@@ -14,6 +14,7 @@ export class InitialsAvatar implements OnInit {
   protected _initials: string = '01';
 
   name = input<string>();
+  size = input<TuiSizeS | TuiSizeL>('m');
   initials = input<string>();
   
   ngOnInit(): void {
