@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TuiButton, TuiIcon, TuiLoader } from '@taiga-ui/core';
+import { TuiButton, TuiLoader } from '@taiga-ui/core';
 import { UserService } from '../core/user/user.service';
 import { UserStatus } from '../core/user/user.utils';
-import { TuiAvatar } from '@taiga-ui/kit';
 import { InitialsAvatar } from '@unihouse/core'
 
 @Component({
@@ -11,9 +10,7 @@ import { InitialsAvatar } from '@unihouse/core'
   imports: [
     CommonModule,
     TuiButton,
-    TuiIcon,
     TuiLoader,
-    TuiAvatar,
     InitialsAvatar
     
   ],
@@ -24,6 +21,7 @@ export class Navbar {
   protected user_service = inject(UserService);
   protected user_status: UserStatus;
   protected user_name: string = '';
+  protected loading_user: boolean = false;
 
   constructor() {
     this.user_status = this.user_service.status;
@@ -38,12 +36,16 @@ export class Navbar {
   protected update_user_status() {
     this.user_service.statusAsObservable.subscribe({
       next: (status) => {
+        console.log(`navbar update to status ${status}`)
         if (status === 'authenticated') {
           console.log(this.user_service.starrez_api_credentials)
           this.user_name = this.user_service.starrez_api_credentials?.full_name ?? 'Ttest Name'
         } 
         this.user_status = status;
+        this.loading_user = status === 'pending';
         
+      }, error: (err) => {
+        console.error(err)
       }
     })
   }

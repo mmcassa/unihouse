@@ -11,7 +11,7 @@
             class="loader"
             [inheritColor]="true"
             [overlay]="true"
-            [showLoader]="user_status === 'pending'"
+            [showLoader]="loading_user"
         >
             @if (user_status === 'authenticated') {
                 <button 
@@ -22,10 +22,11 @@
                 >
                     Clear settings
                 </button>
+                @if (user_name) {
                 <uc-initials-avatar 
                     [name]="user_name" 
                     [size]="'s'"
-                />
+                />}
             } @else {
                 <button tuiButton 
                     appearance="flat" 
