@@ -30,8 +30,6 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
         headers = headers.set('StarRezPassword',credentials.api_key);
       modifiedReq = req.clone({ headers });
     }
-    console.log(credentials)
-    console.log(modifiedReq)
     return next.handle(modifiedReq);
   }
 }
