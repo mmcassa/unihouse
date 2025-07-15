@@ -8,6 +8,7 @@ import { BulkDeleteTransactions } from "./transactions/bulk-delete-transactions"
 import { UserService } from "./core/user/user.service";
 import { StarrezTabTracker } from "./core/starrez/starrez-tab-tracker.service";
 import { StarrezTrackerIcon } from "./core/starrez/starrez-tracker-icon/starrez-tracker-icon";
+import { UserStatus } from "./core/user/user.utils";
 @Component({
   imports: [
     CommonModule,
@@ -34,6 +35,7 @@ export class AppComponent {
   username: string = '';
   active_tab: number = -1;
   active_url: string = '';
+  user_status: UserStatus = 'init';
   private fb: FormBuilder = inject(FormBuilder);
   form: FormGroup;
   user_service = inject(UserService);
@@ -59,6 +61,11 @@ export class AppComponent {
     if (storage_user) {
       this.username = storage_user;
     }
+    this.user_service.statusAsObservable.subscribe({
+      next: res => {
+        this.user_status = res;
+      }
+    })
     
     // try/catch for development preview without building 
     try {

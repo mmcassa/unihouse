@@ -13,7 +13,9 @@
     </header>
     <!-- <div *ngTemplateOutlet="testing"></div> -->
 </div>
-<app-bulk-delete-transactions></app-bulk-delete-transactions>
+@if( user_status === 'authenticated') {
+    <app-bulk-delete-transactions></app-bulk-delete-transactions>
+}
 <router-outlet></router-outlet>
 
 
