@@ -1,34 +1,43 @@
 <form [formGroup]="form">
     <hgroup tuiTitle>
     <h4 >Bulk Delete Transactions</h4>
-    <div tuiSubtitle>
-        Drop in a list of transactions to be deleted, confirm they are correct and... delete!
-    </div>
     </hgroup>
     <hr style="width:100%;">
-    <div class="py-2" style="padding: 10px 0;">
-        <button tuiButton size="s" (click)="fetch_transactions_from_page()">Load from page</button>
-    </div>
-    <tui-textfield>
-        <label 
-            tuiLabel 
+    <div style="display: flex;">
+        <tui-textfield>
+            <label 
+                tuiLabel 
+                >
+                Place your list of transactionids here (CSV format)
+            </label>
+            <textarea 
+                (keydown.enter)="load_transactions()"
+                formControlName="transactions"
+                placeholder="e.g., 123554,124392,381902" 
+                tuiTextarea>
+            </textarea>
+            <tui-icon
+                icon="@tui.arrow-big-down"
+                (click)="load_transactions()"
+            ></tui-icon>
+        </tui-textfield>
+        @if (valid_for_transaction_page_load) {
+        <div class="py-2" style="padding: 10px 5px;">
+            <button tuiButton 
+                    size="s" 
+                    (click)="fetch_transactions_from_page()"
             >
-            Place your list of transactionids here (CSV format)
-        </label>
-        <textarea 
-            (keydown.enter)="load_transactions()"
-            formControlName="transactions"
-            placeholder="e.g., 123554,124392,381902" 
-            tuiTextarea>
-        </textarea>
-        <tui-icon
-            icon="@tui.arrow-big-down"
-            (click)="load_transactions()"
-        ></tui-icon>
-    </tui-textfield>
+                Load from page
+            </button>
+        </div>}
+    </div>
     <hr style="width:100%;">
     @if( sr_parsed_transactions.length > 0) {
-        <app-transactions-list [transactions]="sr_parsed_transactions" (updated)="selected_transactions = $event"></app-transactions-list>
+        <app-transactions-list 
+            style="padding-right: 10px;" 
+            [transactions]="sr_parsed_transactions" 
+            (updated)="selected_transactions = $event" 
+        />
     }
 
     <button 

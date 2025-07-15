@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TuiButton, TuiDataList, TuiHint, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import {TuiStepper, TuiTextarea, TuiTooltip} from '@taiga-ui/kit';
@@ -25,7 +25,7 @@ import { StarrezTabTracker } from '../core/starrez/starrez-tab-tracker.service';
   templateUrl: './bulk-delete-transactions.html',
   styleUrl: './bulk-delete-transactions.scss',
 })
-export class BulkDeleteTransactions {
+export class BulkDeleteTransactions implements OnInit {
 
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
@@ -35,11 +35,25 @@ export class BulkDeleteTransactions {
   protected pending_submit_complete: boolean = false;
   protected sr_parsed_transactions: any[] = [];
   protected selected_transactions: any[] = [];
+  protected valid_for_transaction_page_load: boolean = false;
 
   constructor() {
     this.form = this.fb.group({
       "transactions" : []
+    });
+  }
+
+  ngOnInit() {
+    this.tab_tracker.tab_status.subscribe({
+      next: status => {
+        if (status === 'active' && this.check_page_is_valid_for_transaction_load() !== null) {
+              this.valid_for_transaction_page_load = true;
+        } else {
+          this.valid_for_transaction_page_load = false;
+        }
+      }
     })
+    
   }
 
   protected async load_transactions() {
@@ -65,21 +79,20 @@ export class BulkDeleteTransactions {
       }    })
   } 
 
+  private check_page_is_valid_for_transaction_load() {
+    const ext = this.tab_tracker.get_tab_url_extension();
+    return ext.match('!(group):([0-9]+):transactions$');
+  }
 
   protected fetch_transactions_from_page() {
-    const ext = this.tab_tracker.get_tab_url_extension();
-    console.log(ext);
-    const match = ext.match('!(group):([0-9]+):transactions$');
+    const match = this.check_page_is_valid_for_transaction_load();
     let query;
-    console.log(match?.length)
     if (match !== null && match.length === 3) {
 
       query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount 
         FROM transaction where entryid IN (SELECT EntryID FROM Entry JOIN EntryGroup WHERE EntryStatusEnum = 50 AND EntryGroup.GroupID = ${match[2].toString()})`
-        console.log(query);
       this.http.post<any[]>(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
         next: (res) => {
-          console.log(res);
           this.sr_parsed_transactions = res;
         }, error: err => {
           console.log(err);
@@ -96,7 +109,7 @@ export class BulkDeleteTransactions {
         next: res => {
           // pop deleted from sr_transactions
         }, error: err => {
-          console.error('test',err)
+          console.error('test',err);
         }
       });
     });
