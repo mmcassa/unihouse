@@ -1,11 +1,12 @@
 import { Component, input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericListItem } from '@unihouse/core';
+import { TuiAmountPipe } from '@taiga-ui/addon-commerce'
 
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [CommonModule, GenericListItem],
+  imports: [CommonModule, GenericListItem, TuiAmountPipe],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })
@@ -20,7 +21,6 @@ export class TransactionsList {
   
 
   protected on_toggled(toggle_type: boolean,value: any) {
-    console.log(toggle_type,value)
     if (toggle_type) {
       this.selected.push(value);
     } else {
