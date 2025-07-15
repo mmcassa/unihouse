@@ -25,6 +25,7 @@ class TabPortConnectionManager {
 })
 export class StarrezTabTracker {
   private trackedTabId: number | null = null;
+  private trackedTab!: chrome.tabs.Tab;
   private targetOrigin = 'https://uga.starrezhousing.com';
   private targetPathname = '^/StarRezWeb/.*';
   private _tab_status: BehaviorSubject<TabStatus> = new BehaviorSubject('init' as TabStatus);
@@ -51,6 +52,7 @@ export class StarrezTabTracker {
         });
         if (match) {
           this.trackedTabId = match.id!;
+          this.trackedTab = match;
           this._tab_status.next('active');
           console.log('Tracking tab:', this.trackedTabId);
         } else {
@@ -78,11 +80,12 @@ export class StarrezTabTracker {
           const url = new URL(tab.url || '');
           if (url.origin.match(this.targetOrigin) && url.pathname.match(this.targetPathname)) {
             this.trackedTabId = tabId;
+            this.trackedTab = tab;
             this._tab_status.next('active');
-            console.log('Updated tracked tab:', tabId);
           } else {
             this._tab_status.next('closed');
             this.trackedTabId = null;
+            this.trackedTab = tab;
             this.findMatchingTab();
           }
         } catch {
@@ -126,6 +129,13 @@ export class StarrezTabTracker {
 
   }
 
+  public get_tab_url_extension(): string {
+    console.log(this.trackedTab)
+    const tab = this.trackedTab;
+    const url = new URL(tab?.url || '');
+    return url.href;
+  }
+
   public async send_message(
     message:any,
     response_func?: (res: any) => void,
@@ -139,19 +149,12 @@ export class StarrezTabTracker {
       if (t.active === false) {
         await chrome.tabs.update(tabid, { active: true});
       }
-      // chrome.tabs.get(tabid).then( (tab) => { console.log(tab)})
       console.log('sending_message');
       try {
-        // let res = await chrome.tabs.sendMessage(tabid, message,options);
         chrome.tabs.sendMessage(tabid, message,options,(response) => {
-          // chrome.runtime.
           console.log(response);
           response_func?.(response)
         });
-        // console.log(res);
-        // return;
-        // if (response_func)
-        //   response_func(res);
         
 
       } catch {
