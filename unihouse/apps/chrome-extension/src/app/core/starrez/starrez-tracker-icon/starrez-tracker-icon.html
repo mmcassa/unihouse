@@ -1,1 +1,11 @@
-<tui-icon icon="{{'@tui.'+status}}" />
+<tui-icon 
+    icon="{{'@tui.'+status_icon}}" 
+    [style.color]="status_color ?? 'inherit'"
+    [tuiHint]="description"
+    [tuiHintAppearance]="'dark'"
+    [style.font-size.rem]="1.25" 
+/>
+
+<ng-template #description>
+    {{status_hint ?? 'StarRez Tab Tracker status'}}
+</ng-template>
