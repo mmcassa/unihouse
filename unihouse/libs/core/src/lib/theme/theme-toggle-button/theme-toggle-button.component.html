@@ -1,0 +1,7 @@
+<button
+    tuiIconButton
+    iconStart="{{isDarkMode! ? '@tui.sun' : '@tui.moon'}}"
+    (click)="themeService.toggleMode()"
+    tuiHint="Toggle {{isDarkMode ? 'dark' : 'light'}} mode"
+    >
+</button>
