@@ -62,10 +62,18 @@
       },
       "defaultConfiguration": "production"
     },
-    "postbuild": {
+    "full-build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/copy-extension-assets.js"
+        "commands": [
+          { 
+            "command": "npx nx build chrome-extension"
+          },
+          { 
+            "command": "node tools/copy-extension-assets.js"
+          }
+        ],
+        "parallel": false
       }
     },
     "serve": {
