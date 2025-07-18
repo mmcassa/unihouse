@@ -14,6 +14,7 @@
     <!-- <div *ngTemplateOutlet="testing"></div> -->
 </div>
 @if( user_status === 'authenticated') {
+    <app-family-verification [style.padding]="'5px'"></app-family-verification>
     <app-bulk-delete-transactions></app-bulk-delete-transactions>
 }
 <router-outlet></router-outlet>

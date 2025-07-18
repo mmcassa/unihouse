@@ -9,6 +9,7 @@ import { UserService } from "./core/user/user.service";
 import { StarrezTabTracker } from "./core/starrez/starrez-tab-tracker.service";
 import { StarrezTrackerIcon } from "./core/starrez/starrez-tracker-icon/starrez-tracker-icon";
 import { UserStatus } from "./core/user/user.utils";
+import { FamilyVerification } from "./family/family-verification";
 @Component({
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { UserStatus } from "./core/user/user.utils";
     TuiTitle,
     Navbar,
     BulkDeleteTransactions,
+    FamilyVerification
     
   ],
   selector: 'app-root',
