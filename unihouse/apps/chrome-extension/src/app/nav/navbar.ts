@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TuiButton, TuiLoader } from '@taiga-ui/core';
+import { TuiAppearance, TuiButton, TuiDropdown, TuiLink, TuiLoader, TuiTitle } from '@taiga-ui/core';
 import { UserService } from '../core/user/user.service';
 import { UserStatus } from '../core/user/user.utils';
-import { InitialsAvatar } from '@unihouse/core'
+import { InitialsAvatar, ThemeToggleButtonComponent } from '@unihouse/core'
 import { StarrezTrackerIcon } from '../core/starrez/starrez-tracker-icon/starrez-tracker-icon';
+import { TuiPlatform } from '@taiga-ui/cdk/directives/platform';
+import { TuiBadge } from '@taiga-ui/kit';
+import { TuiCardLarge, TuiHeader } from '@taiga-ui/layout';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +16,17 @@ import { StarrezTrackerIcon } from '../core/starrez/starrez-tracker-icon/starrez
     TuiButton,
     TuiLoader,
     InitialsAvatar,
-    StarrezTrackerIcon
+    StarrezTrackerIcon,
+    ThemeToggleButtonComponent,
+    TuiAppearance,
+    TuiBadge,
+    TuiButton,
+    TuiCardLarge,
+    TuiLink,
+    TuiPlatform,
+    TuiTitle,
+    TuiDropdown,
+    TuiHeader
     
   ],
   templateUrl: './navbar.html',
@@ -38,10 +51,8 @@ export class Navbar {
   protected update_user_status() {
     this.user_service.statusAsObservable.subscribe({
       next: (status) => {
-        console.log(`navbar update to status ${status}`)
         if (status === 'authenticated') {
-          console.log(this.user_service.starrez_api_credentials)
-          this.user_name = this.user_service.starrez_api_credentials?.full_name ?? 'Ttest Name'
+          this.user_name = this.user_service.starrez_api_credentials?.full_name ?? '?test ?'
         } 
         this.user_status = status;
         this.loading_user = status === 'pending';

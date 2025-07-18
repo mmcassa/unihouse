@@ -2,12 +2,12 @@
     <div id="welcome">
         <img src="favicon.png"/>
         <div>
-            <h1>UniHouse</h1>
-            <span>Knock, knock here comes progress!</span>
+            <h1 [style.line-height.rem]="4">unihouse</h1>
+            <span></span>
         </div>
     </div>
     <div style="margin: auto 5px; display: flex;">
-        <div style="margin: auto 0;"> <app-starrez-tracker-icon /></div>
+        <div style="margin: auto .25rem;"> <app-starrez-tracker-icon /></div>
         <tui-loader
             class="loader"
             [inheritColor]="true"
@@ -15,19 +15,20 @@
             [showLoader]="loading_user"
         >
             @if (user_status === 'authenticated') {
-                <button 
-                    tuiButton
-                    appearance="flat"
-                    size="s" 
-                    (click)="user_service.clear_user_settings()"
-                >
-                    Clear settings
-                </button>
+                
                 @if (user_name) {
-                <uc-initials-avatar 
-                    [name]="user_name" 
-                    [size]="'s'"
-                />}
+                    <a
+                        size="m"
+                        tuiDropdownOpen
+                        type="button"
+                        [tuiDropdown]="useractions"
+                    >
+                        <uc-initials-avatar 
+                            [name]="user_name" 
+                            [size]="'s'"
+                        />
+                    </a>    
+                }
             } @else {
                 <button tuiButton 
                     appearance="flat" 
@@ -40,3 +41,34 @@
         </tui-loader>
     </div>
 </div>
+
+<ng-template #useractions>
+    <div
+        class="controls-card"
+        tuiCardLarge
+    >
+        <header tuiHeader>
+            <h2 tuiTitle>Rezscope</h2>
+            <aside tuiAccessories>
+                <app-theme-toggle-button></app-theme-toggle-button>
+            </aside>
+        </header>
+
+        <section class="controls-content">
+            Welcome to Rezscope!
+        </section>
+        <button 
+            tuiButton
+            appearance="flat"
+            size="s" 
+            (click)="user_service.clear_user_settings()"
+        >
+            Clear settings
+        </button>
+
+        <footer class="d-flex justify-content-between">
+            <!-- <app-logout-button></app-logout-button> -->
+            <!-- <div>v{{version}}</div> -->
+        </footer>
+    </div>
+</ng-template>
