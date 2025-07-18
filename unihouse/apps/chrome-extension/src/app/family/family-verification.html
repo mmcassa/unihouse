@@ -1,0 +1,40 @@
+<tui-stepper [(activeItemIndex)]="active_step_idx">
+    <button
+        tuiStep
+        type="button"
+    >
+        Select Entry
+    </button>
+    <button
+        tuiStep
+        type="button"
+    >
+        Select family member(s)
+    </button>
+    <button
+        tuiStep
+        type="button"
+    >
+        Select term(s)
+    </button>
+    <button
+        tuiStep
+        type="button"
+    >
+        Confirm changes
+    </button>
+</tui-stepper>
+<ng-container [ngTemplateOutlet]="tab_templates[active_step_idx]" />
+
+<ng-template #selectentry>
+test
+</ng-template>
+<ng-template #selectfamilymembers>
+test2
+</ng-template>
+<ng-template #selectterms>
+test4
+</ng-template>
+<ng-template #confirmchanges>
+test5
+</ng-template>
