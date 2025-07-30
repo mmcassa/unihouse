@@ -2,13 +2,20 @@ import { Component, input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericListItem } from '@unihouse/core';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce'
-import { TuiCheckbox } from '@taiga-ui/kit';
+import { TuiCheckbox, TuiChip } from '@taiga-ui/kit';
 import { TuiButton, TuiLabel } from '@taiga-ui/core';
 
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [CommonModule, GenericListItem, TuiAmountPipe, TuiCheckbox, TuiLabel, TuiButton],
+  imports: [
+    CommonModule, 
+    GenericListItem, 
+    TuiAmountPipe, 
+    TuiLabel, 
+    TuiButton,
+    TuiChip
+  ],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })
@@ -33,7 +40,7 @@ export class TransactionsList {
     )
     this.selected = new_selected;
     this.updated.emit(this.selected);
-    
+
 
   }
   

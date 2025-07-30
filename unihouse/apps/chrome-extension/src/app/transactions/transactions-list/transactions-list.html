@@ -1,16 +1,17 @@
+<button tuiButton (click)="toggle_all()">Toggle All</button>
 <ul>
-    <li>
-        <button tuiButton (click)="toggle_all()">Toggle All</button>
-    </li>
     @for(t of transactions(); track t['TransactionID']) {
         <li>
             <uh-list-item 
                 [item_value]="t" 
                 (toggled)="on_toggled($event,t)"
             >
-                {{t['Description']}} : (ID:{{t['TransactionID']}})<br> {{t['Comments']}} <br> {{t['Amount'] | tuiAmount : 'USD' : 'left' | async }} : {{t['chargegroup']}}-{{t['chargeitem']}}
+                {{t['Description']}} : (ID:{{t['TransactionID']}}) 
+                @if(t['InvoiceID'] > 0) {<tui-chip appearance="negative">Invoiced</tui-chip>}
+                @if( t['TransactionTypeEnum'] < 3 ) {<tui-chip appearance="negative">Payment</tui-chip>}
+                <br> {{t['Comments']}} <br> {{t['Amount'] | tuiAmount : 'USD' : 'left' | async }} : {{t['chargegroup']}}-{{t['chargeitem']}}
             </uh-list-item>
         </li>
     }
-    {{ selected.length }} 
 </ul>
+Selected {{ selected.length }} of {{transactions().length }}
