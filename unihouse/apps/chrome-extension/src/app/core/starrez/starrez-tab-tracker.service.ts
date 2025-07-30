@@ -69,13 +69,18 @@ export class StarrezTabTracker {
   private setupTabUpdateListener() {
     try {
       // chrome.tabs.onCreated
+      chrome.tabs.onRemoved.addListener((tabId,removeInfo) => {
+        if (tabId === this.trackedTabId) {
+          this.findMatchingTab();
+        }
+      });
       chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         try {
           if (tabId !== this.trackedTabId) {
-            console.log(`Tab (tabId: ${tabId}) changed. Ignoring change`);
+            // console.log(`Tab (tabId: ${tabId}) changed. Ignoring change`);
             return;
           } else {
-            console.log(`Tab (tabId: ${tabId}) changed. Tracking change...`)
+            // console.log(`Tab (tabId: ${tabId}) changed. Tracking change...`)
           }
           this._tab_status.next('pending');
           const url = new URL(tab.url || '');
