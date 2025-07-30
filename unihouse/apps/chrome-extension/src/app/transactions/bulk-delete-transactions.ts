@@ -68,7 +68,7 @@ export class BulkDeleteTransactions implements OnInit {
     }
     let query: string = '';
     if (Array.isArray(transactions) )
-    query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount, b.roomspace
+    query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount, b.roomspace,invoiceid, transactiontypeenum
         FROM transaction LEFT JOIN Booking as b on b.bookingid = transaction.reference_bookingid where transactionid in ( ${transactions.join(',')} )`
     this.http.post<any[]>(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
       next: (res) => {
@@ -89,7 +89,7 @@ export class BulkDeleteTransactions implements OnInit {
     let query;
     if (match !== null && match.length === 3) {
 
-      query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount, b.roomspace
+      query = `SELECT transactionid, description, comments,chargeitem,chargegroup,amount, b.roomspace,invoiceid, transactiontypeenum
         FROM transaction LEFT JOIN Booking as b on b.bookingid = transaction.reference_bookingid where entryid IN (SELECT EntryID FROM Entry JOIN EntryGroup WHERE EntryStatusEnum = 50 AND EntryGroup.GroupID = ${match[2].toString()})`
       this.http.post<any[]>(`https://uga.starrezhousing.com/StarRezREST/services/query/`,query).subscribe({
         next: (res) => {
