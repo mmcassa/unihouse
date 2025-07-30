@@ -45,6 +45,7 @@ export class StarrezTabTracker {
         const match = tabs.find(tab => {
           try {
             const url = new URL(tab.url || '');
+            console.log(url)
             return url.origin === this.targetOrigin;
           } catch {
             return false;

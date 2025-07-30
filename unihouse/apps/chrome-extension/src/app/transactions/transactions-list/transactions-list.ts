@@ -12,7 +12,6 @@ import { TuiButton, TuiLabel } from '@taiga-ui/core';
     CommonModule, 
     GenericListItem, 
     TuiAmountPipe, 
-    TuiLabel, 
     TuiButton,
     TuiChip
   ],
@@ -46,6 +45,7 @@ export class TransactionsList {
   
 
   protected on_toggled(toggle_type: boolean,value: any) {
+    console.log(this.selected)
     if (toggle_type) {
       this.selected.push(value);
     } else {
