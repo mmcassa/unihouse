@@ -2,11 +2,13 @@ import { Component, input, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericListItem } from '@unihouse/core';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce'
+import { TuiCheckbox } from '@taiga-ui/kit';
+import { TuiButton, TuiLabel } from '@taiga-ui/core';
 
 
 @Component({
   selector: 'app-transactions-list',
-  imports: [CommonModule, GenericListItem, TuiAmountPipe],
+  imports: [CommonModule, GenericListItem, TuiAmountPipe, TuiCheckbox, TuiLabel, TuiButton],
   templateUrl: './transactions-list.html',
   styleUrl: './transactions-list.scss',
 })
@@ -16,6 +18,22 @@ export class TransactionsList {
   updated = output<any[]>();
 
   constructor() {
+
+  }
+
+  protected toggle_all() {
+    const prev_selected = this.selected.flatMap(x => x['TransactionID']);
+    const new_selected = [...this.transactions()];
+    let idx;
+    prev_selected.forEach( p => {
+      idx = new_selected.findIndex(x => { return x['TransactionID'] == p});
+      if (idx > -1)
+        new_selected.splice(idx,1);
+    }
+    )
+    this.selected = new_selected;
+    this.updated.emit(this.selected);
+    
 
   }
   
