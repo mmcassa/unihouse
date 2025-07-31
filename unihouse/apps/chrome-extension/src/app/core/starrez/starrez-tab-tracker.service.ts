@@ -36,6 +36,15 @@ export class StarrezTabTracker {
     this.setupTabUpdateListener();
   }
 
+  private validate_matching_tab(tab:chrome.tabs.Tab): boolean {
+    try {
+      const url = new URL(tab.url || '');
+      return url.origin === this.targetOrigin && url.pathname.match(this.targetPathname) !== null;
+    } catch {
+      return false;
+    }
+  }
+
   // Query all tabs and find one with the matching origin, run at start
   private findMatchingTab() {
     try {
@@ -43,17 +52,10 @@ export class StarrezTabTracker {
         
         this._tab_status.next('pending');
         const match = tabs.find(tab => {
-          try {
-            const url = new URL(tab.url || '');
-            return url.origin === this.targetOrigin && url.pathname.match(this.targetPathname) !== null;
-          } catch {
-            return false;
-          }
+          return this.validate_matching_tab(tab);
         });
         if (match) {
-          this.trackedTabId = match.id!;
-          this.trackedTab = match;
-          this._tab_status.next('active');
+          this.set_tracked_tab(match);
           console.log('Tracking tab:', this.trackedTabId);
         } else {
           this._tab_status.next('closed');
@@ -64,19 +66,35 @@ export class StarrezTabTracker {
     }
   }
 
+  private set_tracked_tab(tab: chrome.tabs.Tab) {
+    this.trackedTabId = tab.id!;
+    this.trackedTab = tab;
+    this._tab_status.next('active');
+  }
+
   // open listener to continue listening for tab updates
   private setupTabUpdateListener() {
     try {
-      // chrome.tabs.onCreated
+      // if the tracked tab is removed/closed find a new one
       chrome.tabs.onRemoved.addListener((tabId,removeInfo) => {
         if (tabId === this.trackedTabId) {
           this.findMatchingTab();
         }
       });
+      // Add listener for if a valid tab is activated, track this tab
+      chrome.tabs.onActivated.addListener((info) => {
+        if (info.tabId !== this.trackedTabId) {
+          chrome.tabs.get(info.tabId).then((tab) => {
+            if (this.validate_matching_tab(tab)) {
+              this.set_tracked_tab(tab);
+            } 
+          });
+        }
+      });
+      // Add listener for updates to tabs
       chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         try {
           if (tabId !== this.trackedTabId) {
-            // console.log(`Tab (tabId: ${tabId}) changed. Ignoring change`);
             return;
           } else {
             // console.log(`Tab (tabId: ${tabId}) changed. Tracking change...`)
@@ -84,9 +102,7 @@ export class StarrezTabTracker {
           this._tab_status.next('pending');
           const url = new URL(tab.url || '');
           if (url.origin.match(this.targetOrigin) && url.pathname.match(this.targetPathname)) {
-            this.trackedTabId = tabId;
-            this.trackedTab = tab;
-            this._tab_status.next('active');
+            this.set_tracked_tab(tab);
           } else {
             this._tab_status.next('closed');
             this.trackedTabId = null;
