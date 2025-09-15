@@ -5,15 +5,13 @@ import { RouterOutlet } from '@angular/router';
 import { SecUserHistoryPageComponent } from './tabs/sec-user-history-page/sec-user-history-page.component';
 import { StarRezSecurityUsersPageComponent } from './tabs/security-users-page/security-users-page.component';
 import { ScheduledChangesPageComponent } from './tabs/scheduled-changes-page/scheduled-changes-page.component';
-import { NamedTemplateDirective } from '@unihouse/core';
 import { BasePageContent, NavTabOptions } from '../../core/nav';
 
 @Component({
   selector: 'app-access-management',
   standalone: true,
   imports: [
-    RouterOutlet,
-    NamedTemplateDirective
+    RouterOutlet
   ],
   templateUrl: './access-management.component.html',
   styleUrl: './access-management.component.scss'

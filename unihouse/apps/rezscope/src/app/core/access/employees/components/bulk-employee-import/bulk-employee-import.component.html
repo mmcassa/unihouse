@@ -1,14 +1,14 @@
-	<label
-    *ngIf="!control.value"
-    tuiInputFiles
->
-    <input
-        accept="image/*"
+@if(!control.value) {
+    <label
         tuiInputFiles
-        [formControl]="control"
-    />
-</label>
- 
+    >
+        <input
+            accept="image/*"
+            tuiInputFiles
+            [formControl]="control"
+        />
+    </label>
+ }
 <tui-files class="tui-space_top-1">
     <tui-file
         *ngIf="control.value | tuiFileRejected: {accept: 'image/*'} | async as file"

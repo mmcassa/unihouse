@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { EmployeeInterface } from '../../employee';
 import { CommonModule } from '@angular/common';
-import { EmployeeActionsComponent } from '../employee-actions/employee-actions.component';
+// import { EmployeeActionsComponent } from '../employee-actions/employee-actions.component';
 import { PositionLabelComponent } from '../../../positions/components/position-label/position-label.component';
 import { EmployeeLabelComponent } from '../employee-label/employee-label.component';
 import { DynamicTableComponent, NamedTemplateDirective, AbstractDynamicTableManagerComponent, TableColumnOption } from '@unihouse/core';
@@ -12,7 +12,7 @@ import { DynamicTableComponent, NamedTemplateDirective, AbstractDynamicTableMana
   imports: [
     CommonModule,
     DynamicTableComponent,
-    EmployeeActionsComponent,
+    // EmployeeActionsComponent,
     EmployeeLabelComponent,
     NamedTemplateDirective,
     PositionLabelComponent

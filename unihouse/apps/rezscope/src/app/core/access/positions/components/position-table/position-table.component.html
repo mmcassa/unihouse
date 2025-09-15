@@ -2,8 +2,8 @@
     <div class="d-flex justify-content-between">
         <h5>Positions</h5>
         <div>
-            @if(selected.length > 0) {
-                selected : {{selected.length}}
+            @if((selected()?.length ?? 0) > 0) {
+                selected : {{selected()?.length}}
             }
         </div>
     </div>

@@ -5,12 +5,14 @@ import { debounceTime, map } from 'rxjs';
 import { NamedTemplateDirective } from '../../directives/named-template.directive';
 import { GenericFiltersInterface } from '../search-filters.interface';
 import { TuiTextfield } from '@taiga-ui/core';
+import { CommonModule } from '@angular/common';
 
 export type FiltersMode = 'modal' | 'inline' | 'expand';
 
 @Component({
   selector: 'app-generic-filters',
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     TuiTextfield,
   ],

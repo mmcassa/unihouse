@@ -7,7 +7,7 @@
     </button>
 } @else {
     <ng-container *ngTemplateOutlet="label" />
-}
+} f
 <ng-template #label>
     @if (_employee) {
         
@@ -15,7 +15,7 @@
                 name="{{_employee.is_test_user ? '@tui.bot' : _employee.fullname}}"
                 [tuiHint]="hint() ? hintContent : ''"
             />
-            <span class="name {{_employee?.is_normal ? '' : 'inactive'}}">{{(_employee.fullname ?? '').length > 0 ? _employee.fullname : 'No name found'}}</span>
+            <span class="name {{_employee.is_normal ? '' : 'inactive'}}">{{(_employee.fullname ?? '').length > 0 ? _employee.fullname : 'No name found'}}</span>
             @if (status()) {
                 @if(! _employee.is_normal) {
                     <tui-badge appearance="error" tuiStatus [size]="size()">Inactive</tui-badge>

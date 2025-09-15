@@ -37,6 +37,7 @@ export class EmployeeLabelComponent implements OnInit {
   ngOnInit(): void {
     this.set_employee();
   }
+  
   private set_employee() {
     let id: number;
     const e = this.employee();

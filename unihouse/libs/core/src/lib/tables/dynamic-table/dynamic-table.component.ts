@@ -59,7 +59,7 @@ export class DynamicTableComponent<T extends Record<any,any>> implements OnInit,
   protected show_loading: boolean = false;
   protected timeout?:any;
   
-  protected _columns: TableColumn[] =[new TableColumn('',0,'$_selected')];
+  protected _columns: TableColumn[] =[new TableColumn('$_selected',0,'')];
   protected _select_all: boolean = false;
   protected templateMap: Record<string, TemplateRef<any>> = {};
 
@@ -95,11 +95,11 @@ export class DynamicTableComponent<T extends Record<any,any>> implements OnInit,
   build_columns() {
     const cols = []
       if (this.selectable()) {
-        cols.push(new TableColumn('',0,'$_selected'))
+        cols.push(new TableColumn('$_selected',0,''))
       }
       cols.push(...this.columns().map(
           (x,i) => { 
-            return new TableColumn(x.title,x.order ?? i,x.property)
+            return new TableColumn(x.property,x.order ?? i,x.title)
           }
       ));
       this._columns = cols;

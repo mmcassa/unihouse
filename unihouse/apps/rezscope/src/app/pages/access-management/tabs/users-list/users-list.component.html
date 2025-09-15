@@ -70,7 +70,7 @@
 <ng-template #additionalActions>
     
     <tui-data-list size="s">
-        @for (item of additional_actions; track item.command) {
+        @for (item of additional_actions; track $index) {
         <button
             tuiOption
             size="s"
