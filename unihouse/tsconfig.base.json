@@ -17,7 +17,7 @@
     "paths": {
       "@unihouse/core": ["libs/core/src/index.ts"],
       "@environments": ["${configDir}/environments"],
-      "@app": ["${configDir}/app"]
+      "@unihouse/core": ["libs/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
