@@ -29,7 +29,7 @@ import { EventMessage, EventType } from '@azure/msal-browser';
     TuiIcon
   ],
   templateUrl: './app.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.scss',
 })
 export class App implements AfterContentInit {
   readonly activeroute = inject(ActivatedRoute);
