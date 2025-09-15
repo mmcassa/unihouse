@@ -1,5 +1,4 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
-import { Collection, CollectionEnvironment, ExtEnvironmentService, ExternalEnvironment } from '../ext-environment.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { TuiAutoFocus, TuiContext, tuiPure, TuiStringHandler } from '@taiga-ui/cdk';
@@ -7,6 +6,8 @@ import { TuiButton, TuiHint, TuiLoader, TuiSelect, TuiTextfield } from '@taiga-u
 import { TuiCheckbox, TuiChevron, TuiDataListWrapper } from '@taiga-ui/kit';
 import { Observable } from 'rxjs';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { ExtEnvironmentService } from '../../ext-environment.service';
+import { Collection, ExternalEnvironment } from '../../interfaces/environment-interface';
 
 @Component({
   selector: 'app-add-collection-form',
@@ -27,7 +28,7 @@ export class AddCollectionFormComponent {
 
   protected loaded_environments: boolean = false;
 
-  output = output<Collection|void>();
+  output = output<Collection|null>();
 
   protected form: FormGroup;
 
@@ -50,7 +51,7 @@ export class AddCollectionFormComponent {
       next: res => {
         this.output.emit(res);
       }, error: res => {
-        this.output.emit();
+        this.output.emit(null);
       }
     })
   }

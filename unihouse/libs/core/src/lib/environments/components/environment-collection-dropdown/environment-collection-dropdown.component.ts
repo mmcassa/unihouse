@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ManageEnvironmentCollectionsComponent } from '../manage-environment-collections/manage-environment-collections.component';
 import { TuiAppearance, TuiButton, TuiDataList, TuiDropdown, TuiIcon } from '@taiga-ui/core';
-import { Collection, ExtEnvironmentService } from '../ext-environment.service';
+import { ExtEnvironmentService } from '../../ext-environment.service';
 import { TuiNavigation } from '@taiga-ui/layout';
-import { DialogService } from '../../dialogs';
+import { DialogService } from '../../../dialogs';
+import { Collection } from '../../interfaces/environment-interface';
 
 interface CollectionSelection extends Collection {
   active?: boolean;

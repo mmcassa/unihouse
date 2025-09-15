@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ExtEnvironmentService, ExternalEnvironmentType } from '../ext-environment.service';
+import { ExtEnvironmentService } from '../../ext-environment.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { TuiButton, TuiDataList, TuiLoader, TuiTextfield } from '@taiga-ui/core';
 import { TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiCheckbox, tuiItemsHandlersProvider } from '@taiga-ui/kit';
 import { TuiContext, TuiLet, tuiPure, TuiStringHandler } from '@taiga-ui/cdk';
+import { ExternalEnvironmentType } from '../../interfaces/environment-interface';
 
 @Component({
   selector: 'app-add-environment-form',

@@ -1,33 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { add_filters_to_params } from '../http';
+import { ExternalEnvironment, ExternalEnvironmentType, Collection, CollectionEnvironment } from './interfaces/environment-interface';
 
-export interface ExternalEnvironmentType {
-  id: number;
-  name: string;
-  context: number;
-}
-export interface ExternalEnvironment {
-  id: number;
-  name: string;
-  url: string;
-  type: string;
-  prod: boolean;
-  createdby?: number;
-}
-
-export interface Collection {
-  id: number;
-  name: string;
-  environments?: ExternalEnvironment;
-}
-
-export interface CollectionEnvironment {
-  id: number;
-  environment_id: number;
-  collection_id: number;
-  // environment
-}
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +11,14 @@ export interface CollectionEnvironment {
 export class ExtEnvironmentService {
   private apiUrl = 'https://localhost/0/env/';  // Replace with your Django server URL
   http = inject(HttpClient);
+
   constructor() {}
 
-  getExternalEnvironments(): Observable<ExternalEnvironment[]> {
-    return this.http.get<ExternalEnvironment[]>(`0/env/`);
+  getExternalEnvironments(
+    filters?: any
+  ): Observable<ExternalEnvironment[]> {
+    let params = add_filters_to_params(filters);
+    return this.http.get<ExternalEnvironment[]>(`0/env/`,{params: params});
   }
 
   addExternalEnvironment(environment: ExternalEnvironment): Observable<ExternalEnvironment> {

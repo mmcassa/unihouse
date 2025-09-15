@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Collection, ExtEnvironmentService } from '../ext-environment.service';
+import { ExtEnvironmentService } from '../../ext-environment.service';
 import { TuiButton, TuiHint } from '@taiga-ui/core';
 import { TuiButtonClose } from '@taiga-ui/kit';
 import { TuiTable } from '@taiga-ui/addon-table';
 import { AddCollectionFormComponent } from '../add-collection-form/add-collection-form.component';
 import { CollectionEnvironmentListComponent } from '../collection-environment-list/collection-environment-list.component';
-import { DialogService } from '../../dialogs';
+import { DialogService } from '../../../dialogs';
+import { Collection } from '../../interfaces/environment-interface';
 
 @Component({
   selector: 'app-manage-environment-collections',

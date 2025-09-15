@@ -1,10 +1,11 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { TuiTable } from '@taiga-ui/addon-table';
-import { ExtEnvironmentService, ExternalEnvironment, ExternalEnvironmentType } from '../ext-environment.service';
+import { ExtEnvironmentService } from '../../ext-environment.service';
 import { TuiButton, TuiLoader, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { FormsModule } from '@angular/forms';
 import { TuiInputModule } from '@taiga-ui/legacy';
 import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
+import { ExternalEnvironment, ExternalEnvironmentType } from '../../interfaces/environment-interface';
 
 interface EnvironmentsMap {
   type_id: number;

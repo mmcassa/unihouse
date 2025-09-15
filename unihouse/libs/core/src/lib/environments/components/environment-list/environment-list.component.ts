@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ExtEnvironmentService, ExternalEnvironment } from '../ext-environment.service';
-import { DynamicTableComponent } from '../../tables/dynamic-table/dynamic-table.component';
-import { TableColumnOption } from '../../tables';
-import { NamedTemplateDirective } from '../../directives';
+import { ExternalEnvironment } from '../../interfaces/environment-interface';
+import { ExtEnvironmentService } from '../../ext-environment.service';
+import { DynamicTableComponent } from '../../../tables/dynamic-table/dynamic-table.component';
+import { TableColumnOption } from '../../../tables';
+import { NamedTemplateDirective } from '../../../directives';
 import { TuiBadge } from '@taiga-ui/kit';
-import { EnvironmentTypePipe } from '../environment-type-pipe';
+import { EnvironmentTypePipe } from '../../environment-type-pipe';
 
 @Component({
   selector: 'app-environment-list',
