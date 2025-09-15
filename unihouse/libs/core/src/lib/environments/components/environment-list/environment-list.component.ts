@@ -5,7 +5,7 @@ import { DynamicTableComponent } from '../../../tables/dynamic-table/dynamic-tab
 import { TableColumnOption } from '../../../tables';
 import { NamedTemplateDirective } from '../../../directives';
 import { TuiBadge } from '@taiga-ui/kit';
-import { EnvironmentTypePipe } from '../../environment-type-pipe';
+import { EnvironmentTypePipe } from '../../pipes/environment-type-pipe';
 
 @Component({
   selector: 'app-environment-list',
