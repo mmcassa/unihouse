@@ -28,7 +28,7 @@ import { EventMessage, EventType } from '@azure/msal-browser';
     TuiScrollbar,
     TuiIcon
   ],
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
   styleUrl: './app.component.scss',
 })
 export class App implements AfterContentInit {
