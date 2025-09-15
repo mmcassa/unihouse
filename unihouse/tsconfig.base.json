@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@unihouse/core": ["libs/core/src/index.ts"]
+      "@unihouse/core": ["libs/core/src/index.ts"],
+      "@environments": ["${configDir}/environments"],
+      "@app": ["${configDir}/app"]
     }
   },
   "exclude": ["node_modules", "tmp"]
