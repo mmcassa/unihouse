@@ -1,0 +1,48 @@
+<div class="w-100">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <fieldset>
+        <div tuiGroup class="form-group">
+            <tui-textfield
+                tuiChevron
+                tuiTextfieldSize="s"
+                [tuiTextfieldCleaner]="false"
+            >
+                
+                <label tuiLabel>Environments</label>
+                <input 
+                    formControlName="environment_id"
+                    tuiSelect
+
+                />
+                <tui-data-list-wrapper
+                    *tuiTextfieldDropdown
+                    new
+                    [itemContent]="datalist"
+                    [items]="environments"
+                />
+                
+            </tui-textfield>
+        </div>
+        <button
+            
+            tuiIconButton
+            iconStart="@tui.check"
+            type="submit"
+        >
+            Submit
+        </button>
+        </fieldset>
+    </form>
+</div>
+
+<ng-template 
+    #datalist 
+    let-item
+>
+    <div>
+        {{ item.id }}
+    </div>
+</ng-template>
+<ng-template #loading>
+    <tui-loader class="tui-space_vertical-3 loader" />
+</ng-template>

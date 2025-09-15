@@ -1,0 +1,75 @@
+<header>
+    Your Sessions
+</header>
+
+<section>
+    <table tuiTable 
+        [columns]="['name','environments','_actions']"
+        class="w-100">
+         <thead>
+        <tr tuiThGroup>
+            <th
+                tuiTh
+                [resizable]="true"
+            >
+                Name
+            </th>
+            <th tuiTh>
+                Environments
+            </th>
+            <th tuiTh>Actions</th>
+        </tr>
+    </thead>
+        <tbody tuiTbody [data]="collections">
+        @for(c of collections;track c.id;) {
+            <tr tuiTr>
+                <td tuiTd *tuiCell="'name'">{{c.name}}</td>
+                <td tuiTd *tuiCell="'environments'">
+                    <div>
+                        <app-collection-environment-list 
+                            [collection_id]="c.id" 
+                        />
+                    </div>
+                </td>
+                <td tuiTd *tuiCell="'_actions'">
+                    	<button
+                            iconStart="@tui.pencil"
+                            size="xs"
+                            tuiHint="Edit"
+                            tuiIconButton
+                            type="button"
+                            [style.border-radius.%]="100"
+                        >
+                            Edit
+                        </button>
+                        &nbsp;
+                    	<button
+                            size="xs"
+                            tuiButtonClose
+                            tuiIconButton
+                            type="button"
+                            (click)="delete_collection(c)"
+                            tuiHint="Delete this collection"
+                        >
+                            Close
+                        </button>
+                </td>
+            </tr>
+        }
+        <tr tuiTr>
+            <td tuiTd *tuiCell="'name'" colspan="3">
+            @if (adding_collection) {
+                <app-add-collection-form (output)="push_new_collection($event)" />
+
+            } @else {
+                <button tuiButton 
+                appearance="secondary"
+                    (click)="adding_collection = true;">
+                Add a new session collection
+                </button>
+            }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>

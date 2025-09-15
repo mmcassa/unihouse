@@ -1,0 +1,9 @@
+.user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .name {
+    font-weight: 500;
+  }
+}

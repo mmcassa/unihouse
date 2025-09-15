@@ -1,0 +1,38 @@
+<button
+    appearance="neutral"
+    iconEnd="@tui.chevron-down"
+    tuiButton
+    tuiChevron
+    tuiDropdownOpen
+    [tuiDropdown]="products"
+>
+    <span tuiFade>{{activeEnvironment.length > 0 ? activeEnvironment : 'Select a session'}}</span>
+
+
+    <ng-template #products>
+        <tui-data-list size="s">
+            @for (env of environmentsList; track env.name;) {
+                <button tuiOption (click)="set_active_env(env.name)">
+                    {{env.name}}
+                    @if (activeEnvironment == env.name) { 
+                    <tui-icon
+                        icon="@tui.check" 
+                        [style.font-size.em]="1"
+                        [style.margin-left.rem]="0.5"
+                    />}
+                </button>
+            } @empty {
+            <p>No sessions</p>
+            }
+            
+        <hr/>
+        <button
+            tuiButton
+            (click)="openCollectionsManager()"
+        > Manage sessions
+            
+        </button>
+        </tui-data-list>
+    </ng-template>
+
+</button>

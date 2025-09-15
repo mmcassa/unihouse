@@ -1,0 +1,32 @@
+	<search tuiSearch>
+    <form [formGroup]="form">
+        <fieldset tuiTextfieldSize="s">
+            <tui-textfield iconStart="@tui.search">
+                <input
+                    formControlName="search"
+                    placeholder="Search"
+                    tuiTextfield
+                />
+            </tui-textfield>
+            <app-position-selector [size]="'s'" (selected)="on_position_selected($event)" />
+            
+            <button
+                size="s"
+                tuiButton
+                type="button"
+            >
+                Search
+            </button>
+        </fieldset>
+        <fieldset>
+            <label tuiLabel>
+                <input
+                    formControlName="_all"
+                    tuiSwitch
+                    type="checkbox"
+                />
+                Show Inactive
+            </label>
+        </fieldset>
+    </form>
+</search>

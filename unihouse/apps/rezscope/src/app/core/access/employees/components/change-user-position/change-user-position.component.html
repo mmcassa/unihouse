@@ -1,0 +1,21 @@
+
+<form [formGroup]="form">
+    <div>
+        <div class="mt-3 mb-2">
+            <div class="flex-start"><span class="my-auto">From&nbsp;&nbsp;</span> <span class="my-auto">@if(current_positionid > 0){<app-position-label [id]="current_positionid" />} @else { None } </span>
+                </div>
+            <div class="flex-start mt-2">
+                <div>
+                    To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                    <app-position-selector [filters]="{ 'id_ne' : current_positionid }" (selected)="position_selected($event)" /> 
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+    <div class="footer">
+        <button [disabled]="form.invalid" tuiButton size="m" (click)="postMerge()">Change Position</button>
+        <button size="m" appearance="destructive" tuiButton>Cancel</button>
+    </div>
+</form> 

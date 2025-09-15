@@ -1,0 +1,17 @@
+<app-dynamic-table [style.margin-top.px]="5"
+    [columns]="columns" 
+    [data]="data()"
+    [selectable]="true"
+    (selected)="on_selected_updated($event);"
+>
+    <ng-template [namedTemplate]="'fullname'" let-user>
+        <app-employee-label [employee]="user" />
+    </ng-template>
+    <ng-template [namedTemplate]="'positionid'" let-item>
+        <app-position-label [id]="item.positionid" />
+    </ng-template>
+    <!-- <ng-template [namedTemplate]="'$actions'" let-item>
+        <app-employee-actions [(employee)]="item" />
+    </ng-template> -->
+    <ng-content></ng-content>
+</app-dynamic-table>

@@ -1,0 +1,199 @@
+@if (_position !== undefined) {
+<div
+    tuiCardLarge
+    class="auto-detect-card"
+    tuiSurface="elevated"
+>
+    <header tuiHeader>
+        <div>
+            <h3 tuiTitle>
+                <form [formGroup]="_positionTitleForm">
+                @if (_position.editing_title) {
+                        <tui-input-inline class="title-input">
+                            Position Title
+                            <input class="code-input" 
+                                [class.code-input_empty]="codeEmpty"
+                                tuiAutoFocus
+                                formControlName="title"
+                                (blur)="savePositionTitle(_position)"
+                                (keydown.enter.prevent)="savePositionTitle(_position)"
+                            />
+                        </tui-input-inline>
+                } @else {
+                    <span>{{ _positionTitleForm.get('title')!.value }}</span>
+                    <button
+                        appearance="icon"
+                        iconStart="@tui.pencil"
+                        size="xs"
+                        tuiIconButton
+                        type="button"
+                        class="tui-space_left-1"
+                        (click)="_position.editing_title = true"
+                        tuiHint 
+                        tuiHintDirection="bottom-right"
+                        tuiHintAppearance="dark">
+                        <tui-hint *tuiHint>
+                            Edit Position Title
+                        </tui-hint>
+                    </button>
+                } 
+                @if(_position.staged){ <tui-badge tuiHint 
+                    tuiHintDirection="right"
+                    tuiHintAppearance="dark">Staged<tui-hint *tuiHint>A <b>staged</b> position has not been<br/> committed as an approved position title.<br/>Use the actions below to verify, merge, <br/>or delete this position.</tui-hint></tui-badge> 
+                } 
+                <tui-error 
+                    
+                    formControlName="title"
+                    [error]="[] | tuiFieldError | async" 
+
+                    />
+                <!-- } -->
+                </form>
+                
+                    <div tuiSubtitle>
+                        <div>Position</div>
+                        @if (_position.staged) {
+                        <tui-chip class="actions-chip">
+                            <button tuiIconButton 
+                                    appearance="flat" 
+                                    [style.color]="'var(--tui-status-positive)'" 
+                                    iconStart="@tui.shield-check" 
+                                    tuiHint 
+                                    tuiHintDirection="bottom-right"
+                                    (click)="approvePosition()"
+                                    tuiHintAppearance="dark">
+                                    <tui-hint *tuiHint>
+                                        Mark as Verified
+                                    </tui-hint>
+                            
+                                </button>
+                            <button tuiIconButton 
+                                    tuiTooltip="Merge with Existing Position"
+                                    appearance="flat" 
+                                    iconStart="@tui.merge"
+                                    tuiHint 
+                                    tuiHintDirection="bottom-right"
+                                    (click)="mergePosition()"
+                                    tuiHintAppearance="dark">
+                                <tui-hint *tuiHint>
+                                    Merge with an existing <b>Position</b>
+                                </tui-hint>
+                                </button>
+                            <button tuiIconButton appearance="flat" 
+                                    tuiTooltip="Delete Position"
+                                    [style.color]="'var(--tui-status-negative)'" 
+                                    iconStart="@tui.shield-x"
+                                    tuiHint 
+                                    tuiHintDirection="bottom-right"
+                                    (click)="removePosition()"
+                                    tuiHintAppearance="dark">
+                                    <tui-hint *tuiHint>
+                                        Delete staged <b>Position</b>.<br/><small>This will remove the position from the associated<br/>users and delete the position itself.</small>
+                                    </tui-hint>
+                            </button>
+                        </tui-chip>
+                        }
+                    </div>
+            </h3>
+        </div>    
+    </header>
+    <section>
+        <div>
+            <form [formGroup]="_positionForm">
+                @if ( positionUpdateError !== undefined ){
+                <tui-error [error]="positionUpdateError"/>}
+
+                <label tuiLabel>
+                    <small>Department&nbsp;</small>
+                    <tui-input-inline class="code-input" 
+                    [class.code-input_empty]="departmentEmpty" >
+                        Enter department here
+                        <input formControlName="department" />
+                    </tui-input-inline>
+                    <tui-icon appearance="whiteblock" tuiHintAppearance="dark" 
+                        icon="@tui.circle-help" 
+                        tuiTooltip="The department in which this position resides">
+                    </tui-icon>
+                    <br/>
+                    <tui-error 
+                        formControlName="department"
+                        [error]="[] | tuiFieldError | async" 
+                    />
+                </label>
+                <label tuiLabel>
+                    <small>Code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+                    <tui-input-inline class="code-input" 
+                    [class.code-input_empty]="codeEmpty" >
+                        Enter code here
+                        <input formControlName="code" />
+                    </tui-input-inline>
+                    <tui-icon 
+                        appearance="whiteblock" 
+                        tuiHintAppearance="dark" 
+                        icon="@tui.circle-help" 
+                        tuiTooltip="Unique code to a position that can be used in StarRez to identify users" 
+                    />
+                    <br/>
+                    <tui-error 
+                        formControlName="code"
+                        [error]="[] | tuiFieldError | async" 
+                    />
+                </label>
+                <label tuiLabel>
+                    <small>Fulltime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+                    <input formControlName="is_prostaff" [size]="'s'" tuiSwitch type="checkbox" />
+                    <tui-icon appearance="whiteblock" tuiHintAppearance="dark" icon="@tui.circle-help" tuiTooltip="Whether or not a position is for Full Time Employees and/or Professional Staff"></tui-icon>
+                </label>
+            </form>
+        </div>
+        <div class="mt-2">
+            <div class="d-flex justify-content-between pb-1">
+                <h5>Security Groups</h5>
+                <div>
+                    <button tuiIconButton size="s" 
+                        iconStart="@tui.plus" 
+                        appearance="secondary" 
+                        tuiHint 
+                        tuiHintDirection="bottom"
+                        tuiHintAppearance="dark">
+                        <tui-hint *tuiHint>
+                            Add Group
+                        </tui-hint>
+                    </button>
+                </div>
+
+            </div>
+            <app-securitygroup-chip-list [(groups)]="_groups" />
+        </div>
+        <div [style.margin-top.px]="8">
+            <div class="d-flex justify-content-between px-1">
+                <div>
+                    <h5>Employees</h5>
+                </div>
+                <div>
+                     <div>
+                    <label tuiLabel>
+                    <input 
+                        tuiSwitch
+                        type="checkbox"
+                        size="s"
+                        [(ngModel)]="show_inactive_employees"
+                        (ngModelChange)="get_employees()"
+                    />
+                    <small>Show inactive</small>
+                    </label>
+                </div>
+                </div>
+            </div>
+            <app-employee-table
+             [data]="employees"
+             >
+                <app-pagination-wrapper 
+                    [(paging)]="employees_paging" 
+                    (onPageChange)="get_employees()"
+                />
+            </app-employee-table>
+        
+        </div>
+    </section> 
+</div>}

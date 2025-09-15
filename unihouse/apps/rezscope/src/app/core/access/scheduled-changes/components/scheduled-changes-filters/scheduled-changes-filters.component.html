@@ -1,0 +1,56 @@
+@switch (mode() ) {
+    @case('inline') {
+        <ng-container *ngTemplateOutlet="filtersContent" />
+    }
+    @case('modal') {
+
+    } @case('expand') {
+
+    }
+}
+
+<ng-template #filtersContent >
+	<search tuiSearch>
+    <form [formGroup]="form">
+        <fieldset>
+            @if (show_filter('overdue')) {
+            <div class="my-auto">
+                <label tuiLabel>
+                    <input
+                        tuiSwitch
+                        type="checkbox"
+                        formControlName="overdue"
+                        [showIcons]="true"
+                        [size]="'s'"
+                    />
+                    Overdue Only
+                </label>
+            </div>
+            }
+            @if (show_filter('changedate_range')) {
+            <div [style.width.rem]="13">
+                <tui-textfield 
+                    [iconStart]="'@tui.calendar'"
+                    [tuiTextfieldSize]="'s'"
+                    >
+                    <label tuiLabel>Change Date range</label>
+                    <input
+                        formControlName="changedate_range"
+                        tuiInputDateRange
+                    />
+                    <tui-calendar-range *tuiTextfieldDropdown />
+                </tui-textfield>
+            </div>
+            }
+            @if (show_filter('employmentchangetypeenum')) {
+            <div  [style.width.rem]="12" >
+                <app-scheduled-change-type-selector 
+                    [form]="form" 
+                    [formControlName]="'employmentchangetypeenum'" 
+                />
+            </div>
+            }
+        </fieldset>
+    </form>
+</search>
+</ng-template>

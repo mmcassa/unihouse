@@ -1,0 +1,77 @@
+.header {
+    margin-bottom: 1rem;
+    &_empty {
+
+    }
+  }
+[tuiCardLarge] {
+  gap: 0;
+}
+h1, h2,h3,h4,h5 {
+  color: var(--tui-text-primary);
+}
+.auto-detect-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  width: 100%;
+  height: fit-content;
+}
+  .auto-detect-card
+ {
+  width: 700px;
+  max-width: 700px;
+  margin-bottom: .5rem;
+
+ }  
+
+ .warn {
+  
+    color: var(--tui-text-negative);
+ }
+  .chip-list {
+    margin-bottom: 1rem;
+    max-width: 100%;
+
+  }
+
+  [tuiChip] {
+    gap: 0.5rem;
+  }
+  
+  .tile-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .chip-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+
+.tiles {
+    width: 10rem;
+    gap: 1rem;
+    grid-auto-rows: minmax(var(--tui-height-m), auto);
+}
+
+
+.content {
+    // transition(box-shadow);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background: var(--tui-background-base);
+    border-radius: var(--tui-radius-l);
+    border: 1px solid var(--tui-border-normal);
+    cursor: ns-resize;
+
+    tui-tile._dragged & {
+        box-shadow: var(--tui-shadow-small-hover);
+    }
+}

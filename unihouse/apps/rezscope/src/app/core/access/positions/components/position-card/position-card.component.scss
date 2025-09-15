@@ -1,0 +1,48 @@
+[tuiCardLarge] {
+    min-width: 300px;
+}
+
+.actions-chip {
+  gap: 1rem;
+}
+
+h1,h2,h3,h4,h5{
+    color: var(--tui-text-primary);
+  }
+  .auto-detect-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    width: 100%;
+    height: fit-content;
+  }
+    .auto-detect-card
+   {
+    width: 700px;
+    max-width: 700px;
+    margin-bottom: .5rem;
+  
+   }  
+
+tui-input-inline {
+  margin-right: 1rem;
+}
+
+.code-input {
+  &_empty {
+    opacity: 0.3;
+    color: var(--tui-text-disabled)
+  }
+}
+
+.department-input {
+  &_empty {
+    opacity: 0.3;
+    color: var(--tui-text-disabled)
+  }
+}
+
+#user-position-table {
+  width: 100%;
+
+}

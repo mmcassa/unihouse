@@ -1,0 +1,1 @@
+export * from './name-avatar/name-avatar.component';

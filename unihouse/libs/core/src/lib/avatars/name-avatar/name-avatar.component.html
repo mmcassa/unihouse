@@ -1,0 +1,8 @@
+<div class="user-avatar">
+  <tui-avatar
+    [src]="name().startsWith('@tui.') ? (name()) : (name() | tuiInitials)"
+    [style.background]="background"
+    [style.color]="color"
+    [size]="'xs'"
+  ></tui-avatar>
+</div>

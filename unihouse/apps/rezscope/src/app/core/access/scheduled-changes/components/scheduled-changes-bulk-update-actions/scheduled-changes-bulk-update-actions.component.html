@@ -1,0 +1,39 @@
+<header>
+    Editting ({{current_changes.length}}) changes
+</header>
+<section>
+    <table>
+        <tbody>
+            <tr>
+                <th>Position</th>
+                <td>
+                    <app-position-selector
+                        (selected)="changes.position = $event == null ? undefined : $event.id"
+                        >
+
+                    </app-position-selector>
+                </td>
+            </tr>
+            <tr>
+                <th>Change Type</th>
+                <td>
+                    <app-scheduled-change-type-selector 
+                        [size]="'m'"
+                        (onUpdate)="changes.employmentchangetypeenum = $event ?? undefined" 
+                    />
+                </td>
+            </tr>
+        </tbody>
+        
+    </table>
+</section>
+<footer>
+    <button 
+        appearance="primary"
+        tuiButton
+        [disabled]="! valid_change"
+        (click)="submit()"
+        >
+        Update
+    </button>
+</footer>

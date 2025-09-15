@@ -1,0 +1,19 @@
+
+
+@mixin gradient-animated {
+    background: linear-gradient(to right, #ff0000, #0000ff); /* Your gradient */
+  background-size: 200% 100%; /* Make the background larger than the element */
+  animation: slideGradient 5s infinite alternate linear;
+    opacity: 25%;
+    backdrop-filter: blur(15px);
+  
+}
+
+@keyframes slideGradient {
+    from {
+    background-position: 0% 0%; /* Start position */
+  }
+  to {
+    background-position: 100% 0%; /* End position */
+  }
+}

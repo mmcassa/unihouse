@@ -1,0 +1,14 @@
+:host, button {
+    display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name {
+    font-weight: 500;
+    display: flex;
+    gap: 0.5rem;
+}
+.inactive {
+    color: var(--tui-text-negative);
+}

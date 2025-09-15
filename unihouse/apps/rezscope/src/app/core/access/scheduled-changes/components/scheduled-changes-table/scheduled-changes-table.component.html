@@ -1,0 +1,53 @@
+<app-dynamic-table [style.margin-top.px]="5"
+    [columns]="columns" 
+    [data]="data()"
+    [selectable]="true"
+    (selected)="on_selected_updated($event);"
+>
+    <ng-template [namedTemplate]="'username'" let-item>
+        @if(item.employee) {
+            <app-employee-label [employee]="item.employee" />
+        } @else {
+            <span class="px-1">{{item.username}}</span>@if(item.fullname?.length > 0) {(<span class="inline-block px-1">{{item.fullname}}</span>)}
+        }
+    </ng-template>
+    <ng-template [namedTemplate]="'positionname'" let-item>
+        @if(item.position){
+        <app-position-label [id]="item.position" />}
+        @else {
+            <span class="mr-2 px-2">{{item.positionname}}</span>
+            <tui-badge 
+                class="ml-2" 
+                appearance="error" 
+                size="m"
+            > No position found
+            </tui-badge>
+        }
+    </ng-template>
+    <ng-template [namedTemplate]="'type'" let-item>
+        <tui-badge 
+            appearance="{{item.employmentchangetypeenum | scheduledChangeTypeAppearance}}" 
+            tuiStatus
+            class="mr-2"
+        >
+            {{item.employmentchangetypeenum | scheduledChangeType}}
+        </tui-badge>
+        @if(item.employmentchangetypeenum == 'UNSPECIFIED') {
+            {{item.typename}}
+        }
+    </ng-template>
+    <ng-template [namedTemplate]="'datedetected'" let-item>
+        {{item.datedetected | date }}
+    </ng-template>
+    <ng-template [namedTemplate]="'actiondatestart'" let-item>
+        <span>{{item.actiondatestart | date }}</span>
+        @if (item.actiondatestart <= currentDate) {
+            <tui-pulse 
+                class="ml-1"
+                tuiHint='Overdue action' 
+                tuiHintAppearance='error' 
+                tuiHintDirection='right'
+            />}
+    </ng-template>
+    <ng-content></ng-content>
+</app-dynamic-table>

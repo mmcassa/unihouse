@@ -1,0 +1,31 @@
+<div
+    tuiAppearance="floating"
+    tuiCardLarge
+>
+    <header tuiHeader>
+        <h5 tuiTitle>
+            <span tuiSubtitle>{{action().subtitle}}</span>
+            {{action().title}}
+        </h5>
+        <aside>
+            @if (action().icon) {
+                <tui-avatar appearance="secondary" src="{{action().icon}}" />
+            }
+        </aside>
+    </header>
+
+    <section>
+        <p>{{action().description}}</p>
+    </section>
+
+    <footer>
+        @if (action().action) {
+            <observable-button
+                [appearance]="action().appearance ?? 'primary'"
+                [size]="'m'"
+                [button_label]="action().title"
+                [callback_fnc]="action().action ?? default_callback"
+            />
+        }
+    </footer>
+</div>

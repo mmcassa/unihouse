@@ -1,0 +1,32 @@
+<span tuiStatus>
+    
+    <button
+        tuiIconButton
+        appearance="link"
+        iconStart="@tui.ellipsis-vertical"
+        [size]="size()"
+        [(tuiDropdownOpen)]="dropdown_open"
+        [tuiDropdown]="moreActions"
+
+    >
+        More
+        <ng-template
+            #moreActions
+            let-close
+        >
+            <tui-data-list tuiDataListDropdownManager [size]="dropdown_size">
+                @for (action of actions; track $index) {
+                    <button
+                        tuiOption
+                        tuiAppearance="{{action.appearance ?? 'flat-grayscale'}}"
+                        iconStart="{{action.icon}}"
+                        (click)="execute(action)"
+                        [tuiHint]="action.description ?? ''"
+                    >
+                        {{action.title}}
+                    </button>
+                }
+            </tui-data-list>
+        </ng-template>
+    </button>
+</span>

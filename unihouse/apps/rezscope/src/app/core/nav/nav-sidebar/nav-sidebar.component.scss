@@ -1,0 +1,10 @@
+:host {
+    height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
+}
+
+aside {
+    flex-grow: 1;
+    flex-direction: column;
+}

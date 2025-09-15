@@ -1,0 +1,58 @@
+<div>
+    @if( ! loading) {
+        @if ( ! editting ) {
+            @for (item of environments_map; track item.type_id) {
+                @if ( item.current_environment !== undefined ) {
+                    <h2 tuiTitle>
+                        <b>{{ item.current_environment.name }}</b>
+                        <div
+                            tuiSubtitle
+                            [style.color]="'var(--tui-text-secondary)'"
+                        >
+                            {{item.type_name}}
+                        </div>
+                    </h2>
+                }
+            } 
+            @if ( collection_environments.length === 0 ) {
+                <button tuiButton appearance="secondary" (click)="editting = true;">Add environments</button>
+            }
+        } @else {
+            @for (t of environments_map; track t.type_id) {
+                	<tui-textfield
+                        tuiChevron
+                        [content]="t.current_environment?.name"
+                    >
+                        <input
+                            placeholder="{{t.type_name}}"
+                            tuiSelect
+                            [(ngModel)]="t.current_environment"
+                        />
+                    
+                        <tui-data-list-wrapper
+                            *tuiTextfieldDropdown
+                            
+                            [itemContent]="edittingEnvironmentsList"
+                            [items]="t.environment_options"
+                        />
+                </tui-textfield>
+            }
+        }
+    } @else {
+        <tui-loader
+            [inheritColor]="true"
+            [overlay]="true"
+            [showLoader]="true"
+        ></tui-loader>
+    }
+</div>
+
+	<ng-template
+    #edittingEnvironmentsList
+    let-env
+>
+    <div class="card">
+ 
+        {{ env.name }}
+    </div>
+</ng-template>

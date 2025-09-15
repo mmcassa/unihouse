@@ -1,0 +1,15 @@
+@use '../../styles/animations.scss' as styles;
+
+tr[tuiTr]:hover {
+    td {
+        background-color: var(--tui-background-neutral-1-hover);}
+    
+}
+
+.loading-glass {
+    background: transparent;
+    @include styles.gradient-animated;
+    td {
+        background: transparent;        
+    }
+}

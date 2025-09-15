@@ -1,0 +1,79 @@
+<table 
+    class="w-100"
+    tuiTable 
+    [columns]="flat_columns"
+    [size]="size()"
+>
+    <thead tuiThead>
+        <tr tuiThGroup>
+            @for(col of _columns; track $index) {
+                <th *tuiHead="col.property" tuiTh [sorter]="null"> 
+                    <div>
+                     @if (col.property === '$_selected') {
+                        <input
+                            tuiCheckbox
+                            type="checkbox"
+                            [size]="size()"
+                            [(ngModel)]="_select_all"
+                            (click)="select_all()"
+                        />
+                    } @else {
+                        {{col.title ?? col.property}}
+                    }
+                    </div>
+                </th>
+                
+            }
+        </tr>
+    </thead>
+    <tbody
+        tuiTbody
+        [data]="data() | tuiTableSort"
+    >
+            @for (t_item of data(); track $index; let itemIndex = $index) {
+            <tr tuiTr 
+                class="{{show_loading ? 'loading-glass' : ''}}"
+            >
+                @for (col of flat_columns; track $index) {
+                    <td *tuiCell="col" tuiTd >
+                        <div>
+                        @if (col === '$_selected') {
+                            <input
+                                tuiCheckbox
+                                type="checkbox"
+                                [size]="size()"
+                                [ngModel]="t_item.selected"
+                                (click)="upd_selected(t_item)"
+                            />
+                        } @else {
+                            @if (!show_loading) {
+                                @if (col in templateMap) {
+                                    <ng-container
+                                        *ngTemplateOutlet="templateMap[col]; context: { $implicit: t_item.item }"
+                                    ></ng-container>
+                                } @else {
+                                    <ng-container
+                                        *ngTemplateOutlet="defaultTemplateObj; context: { $implicit: { item: t_item.item, prop: col} }"
+                                    ></ng-container>
+                                }
+                            }
+                        }
+                        </div>
+                    </td> 
+                }
+            </tr>
+            }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td [colSpan]="_columns.length">
+                <ng-content></ng-content>
+            </td>
+        </tr>
+
+    </tfoot>
+</table> 
+
+<ng-template #defaultTemplateObj let-item>
+    {{item.item[item.prop]}}
+</ng-template>

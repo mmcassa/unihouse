@@ -1,0 +1,52 @@
+<ng-container *tuiLet="functions() as funcs">
+    @if(funcs.length > 1 ) {
+        <div
+            tuiGroup
+            [tuiDropdown]="additionalActions"
+            [(tuiDropdownOpen)]="show_additional_actions"
+        >
+            <button
+                tuiButton
+                [appearance]="design().appearance ?? 'primary'"
+                [size]="design().size ?? 's'"
+                [disabled]="funcs[0].disabled"
+                (click)="call_action(funcs[0].callback_fnc,funcs[0].callback_args)"
+                [loading]="loading"
+                [disabled]="loading"
+            >
+            {{funcs[0].button_label}}
+            </button>
+            <button
+                #tuiDropdownHost
+                tuiChevron
+                tuiIconButton
+                [disabled]="loading"
+                [appearance]="design().appearance ?? 'primary'"
+                [size]="design().size ?? 's'"
+                type="button"
+                [style.flex]="'0 0 auto'"
+            >
+                Menu
+            </button>
+        </div>
+    }
+</ng-container>
+
+<ng-template #additionalActions>
+    <ng-container *tuiLet="functions() as funcs">
+        @if (funcs.length > 1){
+        <tui-data-list size="s">
+            @for (item of funcs; track $index) {
+                @if($index > 0){
+            <button
+                tuiOption
+                size="s"
+                type="button"
+                [disabled]="item.disabled ?? false"
+                (click)="call_action(item.callback_fnc,item.callback_args)"
+            >
+                {{ item.button_label }}
+            </button>}}
+        </tui-data-list>}
+    </ng-container>
+</ng-template>

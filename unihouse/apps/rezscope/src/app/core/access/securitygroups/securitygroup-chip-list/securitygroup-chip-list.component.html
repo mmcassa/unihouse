@@ -1,0 +1,17 @@
+<div class="chip-list">
+    @for(group of groups(); track group.id) {
+
+    <button tuiChip appearance="whiteblock" >
+        {{group.name}}
+        @if (removable()){
+        <button 
+            tuiButtonClose
+            tuiIconButton
+            iconStart="@tui.circle-x"
+            (click)="onRemove.emit(group)"
+        >
+            Remove
+        </button>}
+    </button>
+    }
+</div>

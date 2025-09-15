@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+    <tui-textfield
+        [iconStart]="'@tui.user'"
+        [tuiTextfieldSize]="size()"
+        >
+        <label tuiLabel>Full name</label>
+        <input 
+            tuiTextfield 
+            placeholder="Full name"
+            formControlName="fullname" 
+        />
+        <tui-error formControlName="fullname" [error]="[] | tuiFieldError | async"></tui-error>
+    </tui-textfield>
+    <tui-textfield
+        class="my-2"
+        [iconStart]="'@tui.id-card'"
+        [tuiTextfieldSize]="size()"
+    >
+        <label tuiLabel>Username</label>
+        <input 
+            tuiTextfield 
+            placeholder="Username"
+            formControlName="username" 
+        />
+        <tui-error formControlName="username" [error]="[] | tuiFieldError | async"></tui-error>
+    </tui-textfield>
+    <app-position-selector 
+        [size]="size()" 
+        [form]="form" 
+        [formControlName]="'positionid'"
+        />
+    <hr/>
+    <tui-error [error]="submission_error" />
+    <button 
+        tuiButton 
+        [disabled]="! form.valid"
+        appearance="success"
+        [size]="size()"
+        (click)="submit()"
+    >
+        Submit
+    </button>
+
+</form>

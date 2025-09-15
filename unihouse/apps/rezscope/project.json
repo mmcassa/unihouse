@@ -1,0 +1,115 @@
+{
+  "name": "rezscope",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/rezscope/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/rezscope",
+        "browser": "apps/rezscope/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/rezscope/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/rezscope/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
+          }
+        ],
+        "styles": [
+              "@taiga-ui/core/styles/taiga-ui-theme.less",
+              "@taiga-ui/core/styles/taiga-ui-fonts.less",
+              "apps/rezscope/src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/rezscope/src/environments/environment.ts",
+                  "with": "apps/rezscope/src/environments/environment.local.ts"
+                }
+              ],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "rezscope:build:production"
+        },
+        "local": {
+          "buildTarget": "rezscope:build:local"
+        },
+        "development": {
+          "buildTarget": "rezscope:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "rezscope:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/rezscope"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "rezscope:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/rezscope/browser",
+        "spa": true
+      }
+    }
+  }
+}
