@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PositionLabelComponent } from '../../../positions/components/position-label/position-label.component';
 import { EmployeeLabelComponent } from '../employee-label/employee-label.component';
-import { EmployeePositionHistory } from '../../employee';
+import { EmployeePositionHistory } from '../../interfaces/employee.interface';
 import { NamedTemplateDirective, DynamicTableComponent, AbstractDynamicTableManagerComponent, TableColumnOption } from '@unihouse/core';
 
 @Component({

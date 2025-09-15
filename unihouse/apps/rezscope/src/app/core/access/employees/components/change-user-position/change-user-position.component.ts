@@ -3,7 +3,7 @@ import { TuiAlertService, TuiAppearance, TuiButton, TuiDataList, TuiDialogContex
 import {injectContext} from '@taiga-ui/polymorpheus';
 import { TuiDataListWrapper } from '@taiga-ui/kit';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmployeeInterface } from '../../employee';
+import { EmployeeInterface } from '../../interfaces/employee.interface';
 import { PositionLabelComponent } from '../../../positions/components/position-label/position-label.component';
 import { PositionSelectorComponent } from '../../../positions/components/position-selector/position-selector.component';
 import { EmployeeService } from '../../employee.service';

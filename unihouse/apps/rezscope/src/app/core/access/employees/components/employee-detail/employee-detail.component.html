@@ -28,7 +28,7 @@
                 <th>Name</th>
                 <td>
                     <app-employee-label 
-                        [employee]="employee()" 
+                        [employee]="employee() ?? -1" 
                         [link]="false" 
                         [hint]="false" 
                     />

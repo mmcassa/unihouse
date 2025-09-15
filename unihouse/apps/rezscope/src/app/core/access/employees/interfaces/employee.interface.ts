@@ -1,11 +1,11 @@
   
 export interface EmployeeInterface {
-  id?: number;
+  id: number;
   secuserid?: number;
-  username?: string;
+  username: string;
   is_normal: boolean;
-  fullname?: string;
-  description?: string;
+  fullname: string;
+  description: string;
   positionid?: number;
 //   position?: EmploymentPosition;
   position_confirmed: boolean;

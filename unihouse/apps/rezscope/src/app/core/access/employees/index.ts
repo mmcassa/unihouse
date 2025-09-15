@@ -1,3 +1,3 @@
 export * from './employee.service';
-export * from './employee';
+export * from './interfaces/employee.interface';
 export * from './components';

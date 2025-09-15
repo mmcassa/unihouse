@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { TuiHint, TuiLink, TuiSizeL, TuiSizeS } from '@taiga-ui/core';
-import { EmployeeInterface } from '../../employee';
+import { EmployeeInterface } from '../../interfaces/employee.interface';
 import { TuiBadge } from '@taiga-ui/kit';
 import { PositionLabelComponent } from '../../../positions/components/position-label/position-label.component';
 import { CommonModule } from '@angular/common';

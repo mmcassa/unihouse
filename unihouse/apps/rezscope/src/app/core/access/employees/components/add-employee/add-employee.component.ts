@@ -4,7 +4,7 @@ import { TuiFieldErrorPipe, TuiSelect, tuiValidationErrorsProvider } from '@taig
 import { PositionSelectorComponent } from '../../../positions/components/position-selector/position-selector.component';
 import { EmployeeService } from '../../employee.service';
 import { TuiButton, TuiError, TuiLabel, TuiSizeL, TuiSizeS, TuiTextfield } from '@taiga-ui/core';
-import { EmployeeInterface } from '../../employee';
+import { EmployeeInterface } from '../../interfaces/employee.interface';
 import { EmploymentPositionInterface } from '../../../positions/position.interface';
 import { AsyncPipe } from '@angular/common';
 import { tuiIsFalsy, TuiValidationError } from '@taiga-ui/cdk';

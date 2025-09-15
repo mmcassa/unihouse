@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { AbstractPositionDetail } from '../../abstract-position';
-import { TuiAutoColorPipe, TuiLink, TuiSizeL, TuiSizeXS } from '@taiga-ui/core';
+import { TuiAutoColorPipe, TuiLink, TuiSizeXS } from '@taiga-ui/core';
 import { TuiBadge, TuiChip, TuiStatus } from '@taiga-ui/kit';
 import { CommonModule } from '@angular/common';
 

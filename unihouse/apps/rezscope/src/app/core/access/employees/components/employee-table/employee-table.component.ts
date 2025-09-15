@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { EmployeeInterface } from '../../employee';
+import { EmployeeInterface } from '../../interfaces/employee.interface';
 import { CommonModule } from '@angular/common';
 // import { EmployeeActionsComponent } from '../employee-actions/employee-actions.component';
 import { PositionLabelComponent } from '../../../positions/components/position-label/position-label.component';

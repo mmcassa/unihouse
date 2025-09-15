@@ -1,4 +1,4 @@
-import { EmployeeInterface } from "./employees/employee";
+import { EmployeeInterface } from "./employees/interfaces/employee.interface";
 import { EmploymentPositionInterface } from "./positions/position.interface";
 
 export interface SecurityUserGroup {

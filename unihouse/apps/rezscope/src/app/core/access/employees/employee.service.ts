@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
 import { SecurityUserHistory } from '../history/securityuser-history.interface';
 import { BulkEmployeeImportComponent } from './components/bulk-employee-import/bulk-employee-import.component';
 import { ChangeUserPositionComponent } from './components/change-user-position/change-user-position.component';
-import { EmployeeInterface, EmployeePositionHistory } from './employee';
+import { EmployeeInterface, EmployeePositionHistory } from './interfaces/employee.interface';
 import { DrawerService, DialogService, alertsPipe2, PaginatedAPIDataInterface, PaginationOptions, GenericAction, alertsPipe, set_paging_params, parsePagedData } from '@unihouse/core';
 import { add_filters_to_params } from 'libs/core/src/lib/http/params';
 

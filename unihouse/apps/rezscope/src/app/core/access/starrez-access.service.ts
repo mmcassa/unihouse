@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, shareReplay, tap, throwError } from 'rxjs';
 import { TuiAlertService } from '@taiga-ui/core';
-import { EmployeeInterface } from './employees/employee';
+import { EmployeeInterface } from './employees/interfaces/employee.interface';
 import { ScheduledPositionChangeInterface } from './access.interface';
 import { SecurityUserHistory } from './history/securityuser-history.interface';
 import { DialogService, PaginationOptions, add_filters_to_params, PaginatedAPIDataInterface, set_paging_params, parsePagedData, alertsPipe2 } from '@unihouse/core';

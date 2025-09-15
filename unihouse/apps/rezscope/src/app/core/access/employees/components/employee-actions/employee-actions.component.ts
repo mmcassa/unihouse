@@ -1,6 +1,6 @@
 import { Component, inject, input, model, OnInit, output } from '@angular/core';
 import { TuiAppearance, TuiButton, TuiDataList, TuiDropdown, TuiHint, TuiSizeL, TuiSizeS, TuiSizeXS, TuiTextfield } from '@taiga-ui/core';
-import { EmployeeInterface } from '../../employee';
+import { EmployeeInterface } from '../../interfaces/employee.interface';
 import { TuiStatus } from '@taiga-ui/kit';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiTable } from '@taiga-ui/addon-table';

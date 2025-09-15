@@ -1,18 +1,15 @@
 import { Component, inject, model } from '@angular/core';
-import { EmployeeInterface } from '../../../../core/access/employees/employee';
-import { PaginationOptions } from '@unihouse/core';
-import { PaginationWrapperComponent } from '@unihouse/core';
-import { EmployeeTableComponent } from '../../../../core/access/employees/components/employee-table/employee-table.component';
-import { AddEmployeeButtonComponent } from '../../../../core/access/employees/components/add-employee-button/add-employee-button.component';
-import { EmployeeFiltersInterface } from '../../../../core/access/employees/interfaces/employee-filters.interface';
 
 import { TuiButton, TuiDataList, TuiDropdown, TuiGroup, TuiTextfield } from '@taiga-ui/core';
 import { TuiExpand } from '@taiga-ui/experimental';
 import { TuiChevron } from '@taiga-ui/kit';
-import { EmployeeFiltersComponent } from '../../../../core/access/employees/components/employee-filters/employee-filters.component';
-import { EmployeeService } from '../../../../core/access/employees/employee.service';
 import { TuiObscured } from '@taiga-ui/cdk';
-import { EmployeeActionsComponent } from '../../../../core/access/employees/components/employee-actions/employee-actions.component';
+
+import { PaginationOptions,PaginationWrapperComponent } from '@unihouse/core';
+
+import { AddEmployeeButtonComponent, EmployeeActionsComponent, EmployeeTableComponent, EmployeeFiltersComponent, EmployeeService, EmployeeInterface } from 'apps/rezscope/src/app/core/access/employees';
+import { EmployeeFiltersInterface } from 'apps/rezscope/src/app/core/access/employees/interfaces/employee-filters.interface';
+
 
 interface ActionsMenu {
   name: string;

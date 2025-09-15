@@ -10,7 +10,7 @@ import { TuiTable } from '@taiga-ui/addon-table';
 import { TuiCardLarge, TuiHeader } from '@taiga-ui/layout';
 import { TuiInputModule } from '@taiga-ui/legacy';
 import { EmployeeTableComponent } from '../../../employees/components/employee-table/employee-table.component';
-import { EmployeeInterface } from '../../../employees/employee';
+import { EmployeeInterface } from '../../../employees/interfaces/employee.interface';
 import { SecuritygroupChipListComponent } from '../../../securitygroups/securitygroup-chip-list/securitygroup-chip-list.component';
 import { AsyncPipe } from '@angular/common';
 import { distinctUntilChanged } from 'rxjs';

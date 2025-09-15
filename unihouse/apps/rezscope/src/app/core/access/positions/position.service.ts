@@ -4,7 +4,7 @@ import { TuiAlertService } from '@taiga-ui/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { SecurityUserGroup, SecurityUserGroupCompare } from '../access.interface';
 import { EmploymentPositionInterface, Community } from './position.interface';
-import { EmployeeInterface } from '../employees/employee';
+import { EmployeeInterface } from '../employees/interfaces/employee.interface';
 import { EmployeeFiltersInterface } from '../employees/interfaces/employee-filters.interface';
 import { DrawerService, DialogService, PaginationOptions, set_paging_params, add_filters_to_params, PaginatedAPIDataInterface, parsePagedData, alertsPipe } from '@unihouse/core';
 

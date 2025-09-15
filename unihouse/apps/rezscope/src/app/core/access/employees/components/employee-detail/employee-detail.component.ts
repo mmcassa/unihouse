@@ -1,5 +1,5 @@
 import { Component, inject, input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { EmployeeInterface, EmployeePositionHistory } from '../../employee';
+import { EmployeeInterface, EmployeePositionHistory } from '../../interfaces/employee.interface';
 import { EmployeeActionsComponent } from '../employee-actions/employee-actions.component';
 import { EmployeeLabelComponent } from '../employee-label/employee-label.component';
 import { EmployeePositionHistoryTableComponent } from '../employee-position-history-table/employee-position-history-table.component';

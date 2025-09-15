@@ -5,7 +5,7 @@ import { TuiValidationError } from '@taiga-ui/cdk';
 import { TuiAppearance, TuiButton, TuiDataList, tuiDialog, TuiDropdown, TuiError, TuiHint, TuiIcon, TuiTextfield } from '@taiga-ui/core';
 import { distinctUntilChanged } from 'rxjs';
 import { SecurityUserGroup } from '../../../access.interface';
-import { EmployeeInterface } from '../../../employees/employee';
+import { EmployeeInterface } from '../../../employees/interfaces/employee.interface';
 import { MergePositionComponent } from '../merge-position/merge-position.component';
 import { EmploymentPositionInterface } from '../../position.interface';
 import { AsyncPipe } from '@angular/common';
