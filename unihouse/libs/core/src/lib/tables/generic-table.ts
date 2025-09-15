@@ -1,9 +1,6 @@
-import { input, output } from "@angular/core";
-import { TuiSizeL, TuiSizeS } from "@taiga-ui/core";
-
 export interface TableColumnOption {
-  title: string;
-  property?: string;
+  property: string;
+  title?: string;
   order?: number;
 }
 
@@ -19,10 +16,13 @@ export class TableColumn {
   private _order: number;
   private _hidden: boolean = false;
 
-  constructor(title:string,order: number,property?:string) {
-    this._title = title;
+  constructor(
+    property:string,
+    order: number,
+    title?:string) {
+    this._dataProperty = property;
+    this._title = title || property;
     this._order = order;
-    this._dataProperty = property || title;
   }
 
   get order() { return this._order; }
