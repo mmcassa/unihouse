@@ -4,6 +4,7 @@ import { DynamicTableComponent } from '../../tables/dynamic-table/dynamic-table.
 import { TableColumnOption } from '../../tables';
 import { NamedTemplateDirective } from '../../directives';
 import { TuiBadge } from '@taiga-ui/kit';
+import { EnvironmentTypePipe } from '../environment-type-pipe';
 
 @Component({
   selector: 'app-environment-list',
@@ -11,7 +12,8 @@ import { TuiBadge } from '@taiga-ui/kit';
   imports: [
     DynamicTableComponent,
     NamedTemplateDirective,
-    TuiBadge
+    TuiBadge,
+    EnvironmentTypePipe
   ],
   templateUrl: './environment-list.component.html',
   styleUrls: ['./environment-list.component.scss']
