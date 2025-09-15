@@ -10,3 +10,4 @@ export * from './components/environment-list/environment-list.component';
 export * from './components/environment-collection-dropdown/environment-collection-dropdown.component'
 export * from './components/manage-environment-collections/manage-environment-collections.component';
 export * from './components/session-environment-dropdown/session-environment-dropdown.component';
+export * from './components/environment-selector';

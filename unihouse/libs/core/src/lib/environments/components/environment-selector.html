@@ -1,1 +1,31 @@
-<p>environment-selector works!</p>
+	<tui-textfield
+    tuiChevron
+    tuiDropdownMobile="Select user"
+    class="tui-space_vertical-4"
+    [content]="template"
+>
+    <input
+        placeholder="{{placeholder()}}"
+        tuiSelect
+    />
+    <tui-data-list-wrapper
+        *tuiTextfieldDropdown
+        new
+        [itemContent]="template"
+        [items]="environments() ?? null"
+    />
+</tui-textfield>
+<!-- 
+@if (environments()) {
+    @for(env in environments; track $index) {
+    } @empty {
+        No environments found.
+    }
+}  -->
+
+<ng-template
+    #template
+    let-env
+>
+    {{env.name}}    
+</ng-template>
