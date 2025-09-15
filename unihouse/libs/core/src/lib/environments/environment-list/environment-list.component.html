@@ -2,5 +2,12 @@
   [columns]="columns"
   [data]="environments"
   [selectable]="true"
-  />
+  >
+  <ng-template [namedTemplate]="'name'" let-item>
+    {{item.name}} @if(! item.prod) { <tui-badge appearance="info" size="m">Dev&nbsp;</tui-badge>}
+  </ng-template>
+  <!-- <ng-template [namedTemplate]="'type'" let-item>
+    
+  </ng-template> -->
+  </app-dynamic-table>
   
