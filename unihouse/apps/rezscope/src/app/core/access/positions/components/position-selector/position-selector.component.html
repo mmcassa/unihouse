@@ -1,0 +1,37 @@
+<form [formGroup]="form()" >
+<tui-textfield
+    *tuiLet="items$ | async as items"
+    #textfield
+    [content]="value && !textfield.focused() ? content : ''"
+    [stringify]="stringify"
+    tuiChevron
+    iconStart="@tui.briefcase-business"
+    [tuiTextfieldSize]="size()"
+>
+    <input
+        #inputRef
+        placeholder="Select position"
+        tuiComboBox
+        formControlName="{{formControlName()}}"
+        (input)="search$.next($any($event.target).value)"
+    />
+
+    <tui-data-list-wrapper
+        *tuiTextfieldDropdown
+        new
+        [emptyContent]="'No positions found...'"
+        [items]="items"
+        [itemContent]="content"
+    />
+    @if(items && showLoader()) {
+    <tui-loader />}
+    <tui-error 
+        [error]="[] | tuiFieldError | async" 
+        formControlName="{{formControlName()}}"
+        />
+
+</tui-textfield>
+</form>
+<ng-template #content let-item>
+    <app-position-label [id]="item.id" [link]="false" />
+</ng-template>

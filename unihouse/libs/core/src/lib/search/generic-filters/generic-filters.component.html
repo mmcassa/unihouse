@@ -1,0 +1,28 @@
+@switch (mode() ) {
+    @case('inline') {
+        <ng-container *ngTemplateOutlet="filtersContent" />
+    }
+    @case('modal') {
+
+    } @case('expand') {
+
+    }
+}
+
+<ng-template #filtersContent >
+	<search tuiSearch>
+    <form [formGroup]="form">
+        <fieldset tuiTextfieldSize="s">
+            <tui-textfield iconStart="@tui.search">
+                <input
+                    formControlName="search"
+                    placeholder="Search"
+                    tuiTextfield
+                />
+            </tui-textfield>
+        </fieldset>
+        <fieldset>
+        </fieldset>
+    </form>
+</search>
+</ng-template>

@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-between my-2">
+    <h5>Employees</h5>
+    <div class="d-flex gap">
+        <app-add-employee-button class=""/>
+        <div
+            tuiGroup
+            [tuiDropdown]="additionalActions"
+            [(tuiDropdownOpen)]="show_additional_actions"
+        >
+            <button
+                size="s"
+                tuiButton
+                appearance="accent"
+                type="button"
+                [disabled]="selected.length === 0"
+                [tuiDropdown]="bulkActions"
+                [tuiDropdownManual]="show_bulk_actions"
+                [tuiObscuredEnabled]="show_bulk_actions"
+                (click)="open_entry_actions()"
+                (tuiActiveZoneChange)="onActiveZone($event != null)"
+                (tuiObscured)="onObscured($event)"
+            >
+                Bulk Actions
+                <ng-template #bulkActions>
+                    @if (selected.length > 0){
+                        <app-employee-actions [(employee)]="selected" (onChange)="fetch_data()" />
+                    }
+                </ng-template>
+            </button>
+            <button
+                #tuiDropdownHost
+                size="s"
+                tuiChevron
+                tuiIconButton
+                appearance="accent"
+                type="button"
+                [style.flex]="'0 0 auto'"
+            >
+                Menu
+            </button>
+            
+        </div>
+        <button
+            class="rounded-circle"
+            tuiIconButton
+            appearance="outline"
+            iconStart="@tui.sliders-horizontal"
+            size="s"
+            type="button"
+            (click)="show_filters = !show_filters"
+            >
+        </button>
+    </div>
+</div>
+<tui-expand [expanded]="show_filters">
+    <div class="d-flex justify-content-end">
+        <app-employee-filters (onUpdate)="search_updated($event)"/>
+
+    </div>
+</tui-expand>
+<app-employee-table 
+    [data]="users"
+    [(selected)]="selected"
+>
+    <app-pagination-wrapper 
+        [(paging)]="paging" 
+        (onPageChange)="fetch_data()"
+    />
+</app-employee-table>
+<ng-template #additionalActions>
+    
+    <tui-data-list size="s">
+        @for (item of additional_actions; track $index) {
+        <button
+            tuiOption
+            size="s"
+            type="button"
+            [disabled]="item.disabled ?? false"
+            (click)="call_action(item.command)"
+        >
+            {{ item.name }}
+        </button>}
+    </tui-data-list>
+</ng-template>

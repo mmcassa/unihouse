@@ -1,0 +1,22 @@
+@if (icon() && (! button_label() || button_label() === 'Select')) {
+<button #button 
+    [size]="size()" 
+    tuiIconButton 
+    tuiHint="{{hint()}}"
+    iconStart="{{icon()}}"
+    appearance="{{appearance()}}"
+    [disabled]="disabled()"
+    (click)="onClick()" 
+    [loading]="loading" >
+</button>
+} @else {
+<button #button 
+    [size]="size()" 
+    tuiButton 
+    appearance="{{appearance()}}"
+    [disabled]="disabled()"
+    (click)="onClick()" 
+    [loading]="loading" >
+    {{button_label()}}
+</button>
+}

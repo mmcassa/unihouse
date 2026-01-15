@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-between my-2">
+    <header tuiHeader="h5" class="mb-2">
+        <hgroup tuiTitle>
+            <p tuiCaption>Employees</p>
+            <h5>Scheduled Changes</h5>
+        </hgroup>
+    </header>
+    <div class="my-auto">
+        <div class="mb-1 gap d-flex justify-content-end">
+            <div>
+                <observable-button 
+                    [appearance]="'flat'"
+                    [callback_fnc]="detect"
+                    [size]="'s'"
+                    [icon]="'@tui.refresh-ccw'"
+                    [hint]="'Sync with StarRez'"
+                />
+            </div>
+            <app-observable-button-with-dropdown
+                [design]="{ appearance: 'accent'}"
+                [functions]="actions" />
+            <div>
+                <button
+                    class="rounded-circle"
+                    tuiIconButton
+                    appearance="outline"
+                    iconStart="@tui.sliders-horizontal"
+                    size="s"
+                    type="button"
+                    (click)="show_filters = !show_filters"
+                    >
+                </button>
+            </div>
+        </div>
+        <div>
+            
+    
+            <tui-expand [expanded]="show_filters">
+                <div class="d-flex justify-content-end">
+                        <app-scheduled-changes-filters (onUpdate)="search_updated($event)" />
+
+                </div>
+            </tui-expand>
+        </div>
+    </div>
+
+</div>
+<app-scheduled-changes-table 
+    [data]="require_action"
+    [(selected)]="selected"
+>
+    <app-pagination-wrapper 
+        [(paging)]="paging" 
+        (onPageChange)="fetch_data()"
+    />
+</app-scheduled-changes-table>

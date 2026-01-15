@@ -1,0 +1,19 @@
+<div>
+    <ng-content></ng-content>
+    <div>
+        @if (table()) {
+            <tui-table-pagination
+                [page]="paging().page"
+                [size]="paging().page_size"
+                [total]="paging().total_items ?? 0"
+                (paginationChange)="goToPageTable($event)"
+            />
+        } @else {
+            <tui-pagination
+                [index]="paging().page"
+                [length]="paging().total_pages ?? 1"
+                (indexChange)="goToPage($event)"
+            />
+        }
+    </div>
+</div>

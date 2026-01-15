@@ -1,0 +1,122 @@
+<div #dialogContent>
+    <form [formGroup]="form">
+    <div>
+        <div class="flex-start">
+            <div class="">Merge <b>{{title}}</b> to&nbsp;</div>
+            <div>
+                    <tui-select
+                        *tuiLet="merge_positions | async as items"
+                        formControlName="position"
+                        tuiLabel="Position"
+                        tuiTextfieldSize="s"
+                        [valueContent]="items ? stringify(items) : loading"
+                        >
+                        Select a Position
+                        <ng-template tuiDataList>
+                            @if(loaded_positions) {
+                                <tui-data-list>
+                                @for (item of items; track item.id) {<button
+                                    tuiOption
+                                    [value]="item.id"
+                                >
+                                    <app-position-label [id]="item.id ?? -1" />
+                                </button>
+                                }
+                            </tui-data-list>
+                            }
+                        </ng-template>
+                        <ng-template #loading>
+                            <tui-loader class="tui-space_vertical-3 loader"></tui-loader>
+                        </ng-template>
+                    </tui-select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+        <label tuiLabel>
+            <input
+            formControlName="merge_users"
+            tuiCheckbox
+            type="checkbox"
+            />
+            <span tuiTitle>Merge Users
+                <span tuiSubtitle>Moves users to the new position</span>
+            </span>
+        </label>
+    </div>
+        <label tuiLabel>
+            <input
+            formControlName="users_confirm_position"        
+            tuiCheckbox
+            type="checkbox"
+            />
+            <span tuiTitle>Mark User's Positions as Confirmed
+                <span tuiSubtitle>Validates the auto-dected user's position</span>
+            </span>
+        </label>
+        <label tuiLabel>
+            <input
+            formControlName="update_user_groups"
+            tuiCheckbox
+            type="checkbox"
+            />
+            <span tuiTitle>Commit Group Updates to StarRez
+                <span tuiSubtitle>Adds or removes the group changes for all merged users to reflect the new user position</span>
+            </span>
+        </label>
+        <div>
+            
+        </div>
+    </div>
+    <div>
+        <h4>Differing Groups <tui-icon icon="@tui.circle-help" tuiHintDirection="bottom" tuiTooltip="Click on the chips below to add or remove the groups to the selected group on merge."></tui-icon></h4>
+        <div>
+            @if(loaded_group_diffs) {
+                <div class="chip-list">
+                    @for(secgroup of group_diffs; track secgroup.id) {
+                        @if(! secgroup.exists_on_merge) {
+                            <button (click)="secgroup.apply_change = !secgroup.apply_change" 
+                                tuiChip 
+                                appearance="{{secgroup.apply_change ? 'success' : 'whiteblock'}}" 
+                                >
+                                {{secgroup.name}}
+                                <button 
+                                    tuiButtonClose
+                                    tuiIconButton
+                                    iconStart="{{secgroup.apply_change ? '@tui.circle-check' : '@tui.circle-plus'}}"
+                                >
+                                    Remove
+                                </button>
+                            </button>
+                        } @else {
+                            <button (click)="secgroup.apply_change = !secgroup.apply_change" 
+                                tuiChip 
+                                appearance="{{secgroup.apply_change ? 'error' : 'whiteblock'}}" 
+                                >
+                            {{secgroup.name}}
+                            <button 
+                                
+                                tuiButtonClose
+                                tuiIconButton
+                                iconStart="{{secgroup.apply_change ? '@tui.circle-check' : '@tui.circle-minus'}}"
+                            >
+                                Remove
+                            </button>
+                        </button>
+                        }
+                    }
+                    
+                </div>
+            } @else {
+                <i>Select a position before you can load the differing groups.</i>
+            }
+        </div>
+    </div>
+    <div class="footer">
+        <button tuiButton (click)="postMerge()">Merge</button>
+        <button appearance="destructive" tuiButton>Cancel</button>
+    </div>
+
+    </form> 
+</div>

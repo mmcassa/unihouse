@@ -1,0 +1,19 @@
+<div>
+    <h5>Security User History</h5>
+</div>
+<app-dynamic-table [style.margin-top.px]="5"
+    [columns]="columns" 
+    [data]="data()"
+>
+    <ng-template [namedTemplate]="'secuserid'" let-item>
+        @if (item.secuserid){
+            <app-employee-label [secuserid]="item.secuserid" />}
+    </ng-template>
+    <ng-template [namedTemplate]="'logtime'" let-item>
+        {{item.logtime | date: 'short'}}
+    </ng-template>
+    <app-pagination-wrapper 
+        [(paging)]="paging" 
+        (onPageChange)="fetch_data()"
+    />
+</app-dynamic-table> 

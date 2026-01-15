@@ -1,0 +1,15 @@
+<div>
+    <h5>Employee Position History</h5>
+</div>
+<app-dynamic-table [style.margin-top.px]="5"
+    [columns]="columns" 
+    [data]="data()"
+>
+    <ng-template [namedTemplate]="'employee'" let-item>
+        <app-employee-label [employee]="item.employeeid" />
+    </ng-template>
+    <ng-template [namedTemplate]="'position'" let-item>
+        <app-position-label [id]="item.positionid" />
+    </ng-template>
+    <ng-content></ng-content>
+</app-dynamic-table> 

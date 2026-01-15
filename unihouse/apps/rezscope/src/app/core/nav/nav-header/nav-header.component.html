@@ -1,0 +1,60 @@
+<header tuiNavigationHeader >
+    <button
+        appearance="accent"
+        iconStart="@tui.layout-grid"
+        tuiIconButton
+    >
+        Menu
+    </button>
+    <span tuiNavigationLogo appearance="accent">
+        <tui-icon icon="@tui.home" />
+        <span tuiFade>{{siteTitle}}</span>
+        @if (isDev){<tui-badge appearance="accent">Dev</tui-badge>}
+    </span>
+    <app-environment-collection-dropdown/>
+    <hr />
+    @if (is_authenticated) {
+    <button
+        iconStart="@tui.bell"
+        tuiIconButton
+    >
+        Notifications
+        @if (hasNotifications) {<tui-badge-notification></tui-badge-notification>}
+    </button>
+    <button
+        iconStart="@tui.settings"
+        tuiIconButton
+        routerLink="settings"
+    >
+        Settings
+    </button>
+    }
+    <button
+        iconStart="@tui.badge-help"
+        tuiIconButton
+    >
+        Help
+    </button>
+
+    @if ( is_authenticated ) {
+        <a
+            size="m"
+            tuiDropdownOpen
+            type="button"
+            [tuiDropdown]="usercontrols"
+        >
+            <tui-avatar 
+                src="{{initials}}" 
+                class="avatar-text" 
+                [style.background]="initials | tuiAutoColor"
+            /> 
+        </a>
+    } @else {
+        <app-login-button></app-login-button>
+    }
+    
+</header>
+
+<ng-template #usercontrols>
+    <app-user-controls-dialog></app-user-controls-dialog>
+</ng-template>

@@ -1,30 +1,21 @@
-import { DOCUMENT, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LocalStorageService } from '../storage/local-storage.service';
+import { CacheService } from '../cache/cache.service';
 
-const THEME_LOCAL_STORAGE_TOKEN = 'uh_lib_core_theme_setting';
+const THEME_SERVICE_CACHE_TOKEN = 'uh_lib_core_theme_setting';
+export const DEFAULT_THEME_VALUE:string  = "dark";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
+  private cache = inject(CacheService);
   private _theme: string;
   private _themeBS: BehaviorSubject<string>;
-  private _document = inject(DOCUMENT);
-  private storage = inject(LocalStorageService);
-
   constructor() {
-    this._theme = this.storage.get(THEME_LOCAL_STORAGE_TOKEN) ?? 'light';
+    const cache_value = this.cache.get(THEME_SERVICE_CACHE_TOKEN) as string | null;
+    this._theme = cache_value ?? DEFAULT_THEME_VALUE;
     this._themeBS  = new BehaviorSubject(this._theme);
-    this._themeBS.asObservable().subscribe({
-      next: theme => {
-        this.storage.set(THEME_LOCAL_STORAGE_TOKEN,theme);
-        let els = this._document.getElementsByTagName('tui-root');
-        if (els.length === 1) {
-          els[0].setAttribute('tuiTheme',theme);
-        }
-      }
-    })
    }
 
   get theme(): Observable<string> {
@@ -33,11 +24,12 @@ export class ThemeService {
 
   toggleMode() {
     let t: string;
-    if (this._themeBS.value === 'dark') {
+    if (this._themeBS.value == 'dark') {
       t = 'light';
     } else {
       t = 'dark';
     }
+    this.cache.set(THEME_SERVICE_CACHE_TOKEN,t);
     this._themeBS.next(t);
   }
 }

@@ -1,0 +1,50 @@
+@switch (mode() ) {
+    @case('inline') {
+        <ng-container *ngTemplateOutlet="filtersContent" />
+    }
+    @case('modal') {
+
+    } @case('expand') {
+
+    }
+}
+
+<ng-template #filtersContent >
+	<search tuiSearch>
+    <form [formGroup]="form">
+        
+        <fieldset tuiTextfieldSize="s">
+            @if (show_filter('_all')) {
+                <label tuiLabel>
+                    <input
+                        formControlName="_all"
+                        tuiSwitch
+                        type="checkbox"
+                    />
+                    Show Inactive
+                </label>
+            }
+            @if (show_filter('search')) {
+            <div>
+            <tui-textfield iconStart="@tui.search">
+                <input
+                    formControlName="search"
+                    placeholder="Search"
+                    tuiTextfield
+                />
+            </tui-textfield>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="search" />
+            </div>
+            }
+            @if (show_filter('positionid')) {
+                <app-position-selector 
+                    [size]="'s'" 
+                    (selected)="on_position_selected($event ?? undefined)" 
+                />
+            }
+        </fieldset>
+        <fieldset>
+        </fieldset>
+    </form>
+</search>
+</ng-template>

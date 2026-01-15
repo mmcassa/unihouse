@@ -1,0 +1,16 @@
+@if(breadcrumbs.length > 1) {
+    <a (click)="goBack()" tuiButton appearance="flat" size="xs">
+        <tui-icon icon="@tui.chevron-left"></tui-icon>
+        Back
+    </a>
+    /
+}
+@for (breadcrumb of breadcrumbs; track breadcrumb.url; let last = $last){
+    @if (!last) {
+    <a tuiButton appearance="flat" size="xs"  [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a> &gt;
+    } @else {
+    <a tuiButton appearance="flat" size="xs" [style.color]="'var(--tui-text-01)'">
+    {{ breadcrumb.label }} </a>
+    }
+
+}

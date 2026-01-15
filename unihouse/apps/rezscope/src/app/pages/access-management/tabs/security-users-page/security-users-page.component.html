@@ -1,0 +1,65 @@
+<div>
+    <div class="d-flex justify-content-between mt-2">
+        <div><h5>Position Setup</h5></div>
+        
+    <div>
+        <observable-button [style.margin-left.rem]=".25"
+            [button_label]="'Auto Detect Access'"
+            [callback_fnc]="auto_detect_users()"
+        />
+    </div>
+
+    </div>
+    <div [style.margin.rem]=".5">
+        <search tuiSearch>
+            <form [formGroup]="searchForm">
+                <fieldset tuiTextfieldSize="s">
+                    <tui-textfield iconStart="@tui.search">
+                        <input
+                            formControlName="search"
+                            placeholder="Search"
+                            tuiTextfield
+                            (keyup.enter)="fetchData()"
+                        />
+                    </tui-textfield>
+                    <button
+                        size="s"
+                        tuiButton
+                        (click)="fetchData()"
+                    >
+                        Search
+                    </button>
+                </fieldset>
+            </form>
+        </search>
+    </div>
+    <div class="row">
+        <div>
+            <label tuiLabel>
+                    <input 
+                        tuiSwitch
+                        type="checkbox"
+                        size="s"
+                        [(ngModel)]="staged_only"
+                        (ngModelChange)="fetchData()"
+                    />
+                    <small>Staged Only</small>
+                    </label>
+        </div>
+    </div>
+        <tui-loader 
+            [overlay]="true" 
+            [showLoader]="loading_positions"
+            >
+    <div class="auto-detect-container">
+        @for(position of positions; track position.id;let idx = $index) {
+            <app-position-card [position]="position" (removed)="positionRemoved(idx,$event)"></app-position-card>
+        }
+    </div> 
+    </tui-loader>
+        <app-pagination-wrapper
+        [(paging)]="paging_options"
+        [table]="false"
+        (onPageChange)="fetchData()"
+    />
+</div>

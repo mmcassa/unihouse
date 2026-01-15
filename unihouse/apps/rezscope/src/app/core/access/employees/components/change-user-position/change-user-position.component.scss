@@ -1,0 +1,32 @@
+.flex-start {
+    display:flex;
+    justify-content: start;
+    :first-child {
+        margin: auto 0;
+    }
+    :last-child {
+        flex-grow: 1;
+    }
+}
+
+
+.actions-chip {
+    gap: 1rem;
+  }
+  
+  .chip-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+      gap: .5rem;
+  }
+  
+
+  .footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--tui-background-accent-opposite);
+    gap: .5rem;
+    display: flex;
+    justify-content: start;
+  }

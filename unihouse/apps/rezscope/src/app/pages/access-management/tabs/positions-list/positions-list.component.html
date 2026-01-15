@@ -1,0 +1,7 @@
+<app-position-filters (onUpdate)="fetch_data($event)" />
+<app-position-table [data]="data" >
+    <app-pagination-wrapper 
+        [(paging)]="paging" 
+        (onPageChange)="fetch_data()"
+    />
+</app-position-table>

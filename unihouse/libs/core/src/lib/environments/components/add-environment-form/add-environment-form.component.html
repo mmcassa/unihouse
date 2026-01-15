@@ -1,0 +1,69 @@
+
+<div class="form-container">
+    
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div tuiGroup class="form-group">
+            <tui-input 
+                tuiTextfieldSize="s" 
+                tuiTextfield 
+                formControlName="name" 
+                placeholder="Name" 
+                aria-placeholder="Name" 
+                tuiLabel="Name"
+            >
+                Name
+                <span class="tui-required"></span>
+            </tui-input>
+        </div>
+        <div tuiGroup class="form-group">
+            <tui-select
+            *tuiLet="typeOptions$ | async as items"
+            formControlName="type"
+            tuiLabel="Type"
+            tuiTextfieldSize="s"
+            [valueContent]="items ? stringify(items) : loading"
+            >
+                <ng-template tuiDataList>
+                    @if ( loadedTypeOptions ) { 
+                        <tui-data-list>
+                            @for (item of items; track item.id){<button
+                                tuiOption
+                                [value]="item.id"
+                            >
+                                {{ item.name }}
+                            </button>}
+                        </tui-data-list>
+                    }
+                </ng-template>
+                <ng-template #loading>
+                    <tui-loader class="tui-space_vertical-3 loader" />
+                </ng-template>
+            </tui-select>
+        </div>
+        <div tuiGroup class="form-group">
+            <span tuiLabel>Production
+                <input tuiCheckbox type="checkbox" [indeterminate]="true" [size]="'s'" formControlName="prod" />
+            </span>
+        </div>
+        <div tuiGroup class="form-group">
+            <tui-input  
+                tuiTextfieldSize="s" 
+                tuiTextfield 
+                formControlName="url"  
+                aria-placeholder="API Url"  
+                tuiLabel="URL"
+            >
+                Site Url
+                <span class="tui-required"></span>
+            </tui-input>
+        </div>
+        <button tuiButton [size]="buttonSize" type="submit">Submit</button>
+
+        <ng-template 
+            #typeContent
+            let-opt
+        > 
+            <option [value]="opt.id">{{ opt.name }}</option>
+        </ng-template>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+<app-security-user-change-log-table />
+<app-employee-position-history-table [(data)]="position_history" >
+    
+    <app-pagination-wrapper 
+        [(paging)]="paging" 
+        (onPageChange)="fetch_position_history()"
+    />
+</app-employee-position-history-table>

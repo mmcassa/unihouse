@@ -1,0 +1,25 @@
+<div>
+    <div class="d-flex justify-content-between">
+        <h5>Positions</h5>
+        <div>
+            @if((selected()?.length ?? 0) > 0) {
+                selected : {{selected()?.length}}
+            }
+        </div>
+    </div>
+    <app-dynamic-table [style.margin-top.px]="5"
+        [columns]="columns" 
+        [data]="data()"
+        [selectable]="true"
+        (selected)="on_selected_updated($event);"
+    >
+        <ng-template [namedTemplate]="'title'" let-item>
+            <app-position-label [id]="item" [department]="false"/>
+        </ng-template>
+        <ng-template [namedTemplate]="'description'" let-item>{{item.description}}</ng-template>
+        <ng-template [namedTemplate]="'stafftype'" let-item>
+            {{item.is_prostaff ? 'Professional' : 'Student'}}
+        </ng-template>
+        <ng-content></ng-content>
+    </app-dynamic-table>
+</div>

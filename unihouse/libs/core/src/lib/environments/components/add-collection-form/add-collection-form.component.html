@@ -1,0 +1,25 @@
+<div class="w-100">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <fieldset>
+        <p>
+            <tui-input
+                tuiAutoFocus
+                formControlName="name"
+                tuiTextfieldSize="l"
+            >
+                Session Name
+                <input
+                    tuiTextfieldLegacy
+                />
+            </tui-input>
+        </p>
+    
+        <button tuiIconButton
+            iconStart="@tui.check" 
+            type="submit">
+            Add Session
+        </button>
+        
+    </fieldset>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+@if(!loading) {
+    @if(position) {
+        <tui-chip
+            [size]="'xs'"
+            appearance="custom"
+            [style.background-color]="(position.title ?? '') | tuiAutoColor"
+        >
+            {{ position.title }}
+        </tui-chip>
+    } @else {
+        -
+    }
+}
+@else {
+    <tui-loader></tui-loader>
+
+}

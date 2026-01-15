@@ -1,0 +1,12 @@
+p {
+    margin: 0;
+}
+div {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hiddenx;
+}
+
+tui-chip {
+    color:  var(--tui-service-backdrop);
+}

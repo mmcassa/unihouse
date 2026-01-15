@@ -1,0 +1,37 @@
+@if (_employee && link()) {
+    <button 
+        tuiLink 
+        (click)="open_drawer()" 
+        >
+        <ng-container *ngTemplateOutlet="label" />
+    </button>
+} @else {
+    <ng-container *ngTemplateOutlet="label" />
+}
+<ng-template #label>
+    @if (_employee) {
+        
+            <app-name-avatar class="inline"
+                name="{{_employee.is_test_user ? '@tui.bot' : _employee.fullname}}"
+                [tuiHint]="hint() ? hintContent : ''"
+            />
+            <span class="name {{_employee.is_normal ? '' : 'inactive'}}">{{_employee.fullname.length > 0 ? _employee.fullname : 'No name found'}}</span>
+            @if (status()) {
+                @if(! _employee.is_normal) {
+                    <tui-badge appearance="error" tuiStatus [size]="size()">Inactive</tui-badge>
+                }
+                @if (_employee.is_test_user) {
+                    <tui-badge appearance="info" [size]="size()">Test user</tui-badge>
+                }
+            }
+    } @else {
+        <app-name-avatar name="" />
+    }
+</ng-template>
+
+<ng-template #hintContent>
+    @if(_employee) {
+        <app-position-label [id]="_employee.positionid ?? -1"/>
+        <h5>{{_employee.fullname}}</h5>
+    }
+</ng-template>

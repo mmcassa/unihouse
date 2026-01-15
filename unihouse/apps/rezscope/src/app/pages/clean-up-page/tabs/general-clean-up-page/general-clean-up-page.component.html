@@ -1,0 +1,8 @@
+<section class="mt-1">
+    <h4 >Actions</h4>
+</section>
+<div class="tui-row">
+    @for (action of actions; track action.title){
+        <app-action-card [action]="action" />
+    }
+</div>

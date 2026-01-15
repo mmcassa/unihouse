@@ -1,0 +1,44 @@
+
+.actions-chip {
+  gap: 1rem;
+}
+
+section {
+    padding-top: 1rem;
+}
+
+table.personal {
+    tr {
+        th,td {
+            padding: .25rem 0 .25rem .5rem;
+            
+        }
+    }
+}
+
+h1,h2,h3,h4,h5{
+    color: var(--tui-text-primary);
+}
+
+tui-input-inline {
+  margin-right: 1rem;
+}
+
+.code-input {
+  &_empty {
+    opacity: 0.3;
+    color: var(--tui-text-disabled)
+  }
+}
+
+.department-input {
+  &_empty {
+    opacity: 0.3;
+    color: var(--tui-text-disabled)
+  }
+}
+
+#user-position-table {
+  width: 100%;
+
+}

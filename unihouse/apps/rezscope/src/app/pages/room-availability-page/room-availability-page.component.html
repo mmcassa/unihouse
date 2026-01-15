@@ -1,0 +1,146 @@
+@for (report of something; track report.ReportID;) {
+    <p>{{report["ReportID"]}}</p>
+}
+<div id="button-designer-container">
+    <h3>Portal X Button Designer</h3>
+    <div id="button-designer-sandbox">
+        <svg #svgElement height="150" width="600" xmlns="http://www.w3.org/2000/svg">
+            <path 
+                d="M0 150 L0 70 Q -5 -5 70 0 L600 0 L600 80 Q 605 155 530 150" 
+                [attr.fill]="button_designer_form.get('color')?.value?.background ?? '#000000'"
+            />
+            <svg x="3" y="54" width="100" height="100">
+            </svg>
+            <use 
+                [attr.x]="70-((button_designer_form.get('icon_size')?.value ?? 68)/2)" 
+                [attr.y]="75-((button_designer_form.get('icon_size')?.value ?? 68)/2)" 
+                [attr.height]="(button_designer_form.get('icon_size')?.value ?? 68)" 
+                [attr.width]="(button_designer_form.get('icon_size')?.value ?? 68)"
+                [attr.href]="'assets/taiga-ui/icons/' + (button_designer_form.get('icon')?.value ?? '') + '.svg'" 
+                [attr.color]="button_designer_form.get('color')?.value?.color ?? '#FFFFFF'"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                
+            />
+
+            @if ((button_designer_form.get('icon_ring')?.value ?? true)) {
+                <circle 
+                    cx="70" 
+                    cy="75" 
+                    r="35" 
+                    fill="none" 
+                    [attr.stroke]="button_designer_form.get('color')?.value?.color ?? '#FFFFFF'" 
+                    stroke-width="3" 
+                />
+            }
+            
+            <text 
+                x="125" 
+                y="95" 
+                [attr.fill]="button_designer_form.get('color')?.value?.color ?? '#FFFFFF'" 
+                font-size="50" 
+                font-weight="500" 
+                style="text-transform: uppercase;" 
+                font-family="Oswald, sans-serif"
+            >
+                {{button_designer_form.get('label')?.value ?? 'Your Text Here'}}
+            </text>
+        </svg>
+    </div>
+    <div >
+        <button tuiButton (click)="export_to_jpeg()" appearance="flat">Export as JPEG</button>
+        <button tuiButton appearance="flat">Export as SVG</button>
+    </div>
+    <div id="button-designer-settings">
+        <h4>Settings</h4>
+        <hr/>
+        <form [formGroup]="button_designer_form">
+            <tui-textfield>
+                <label tuiLabel>Label</label>
+                <textarea
+                    placeholder="Your text here"
+                    formControlName="label"
+                    tuiTextarea
+                ></textarea>
+            </tui-textfield>
+            
+            <tui-textfield
+                #colorTextField
+                tuiChevron
+                [content]="button_designer_form.get('color')?.value && !colorTextField.focused() ? colorSelectorItem : ''"
+                [stringify]="stringify"
+            >
+                <label tuiLabel>Button Color</label>
+                <input 
+                    tuiComboBox
+                    placeholder="Select a color"
+                    formControlName="color"
+                    [matcher]="matcher"
+                />
+
+                <tui-data-list-wrapper
+                    *tuiTextfieldDropdown
+                    new
+                    [itemContent]="colorSelectorItem"
+                    [items]="button_color_options | tuiFilterByInput: matcher"
+                />
+            </tui-textfield>
+            <tui-textfield [iconStart]="updating_icon ? '' : '@tui.'+(button_designer_form.get('icon')?.value ?? '')">
+                <label tuiLabel>Icon</label>
+                <input
+                    placeholder="Icon"
+                    formControlName="icon"
+                    tuiTextfield
+                />
+                <tui-loader [showLoader]="updating_icon"></tui-loader>
+            </tui-textfield>
+            <a 
+                tuiLink
+                href="https://lucide.dev/icons/" 
+                target="_blank"
+                tuiHint="Explore the list of available Lucide icons"
+                [tuiHintDirection]="'right'"
+            >
+                Goto Lucide Icons
+            </a>
+            <tui-textfield
+                [tuiTextfieldCleaner]="false"
+            >
+                <label tuiLabel>Icon Size</label>
+                <input
+                    placeholder="ex. 68"
+                    formControlName="icon_size"
+                    tuiInputNumber
+                    [step]="2"
+                />
+            </tui-textfield>
+            <label >
+                <input
+                    tuiCheckbox
+                    type="checkbox"
+                    formControlName="icon_ring"
+                    size="m"
+                />
+                Icon circle
+            </label>
+        </form>
+    </div> 
+    </div>
+
+
+
+<ng-template 
+    #colorSelectorItem 
+    let-color
+>
+    <div>
+        <span 
+            class="color-item-circle"
+            [style.border-color]="color.background"
+            [style.border-width]="'5px'"
+            [style.border-style]="'solid'"
+            [style.background]="color.color"
+        ></span><span>{{color.label}}</span>
+    </div>
+</ng-template>

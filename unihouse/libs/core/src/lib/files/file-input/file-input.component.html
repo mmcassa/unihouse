@@ -1,0 +1,42 @@
+@if(!control.value){
+    <label
+        tuiInputFiles
+    >
+        <input
+            placeholder="help"
+            [accept]="'.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'"
+            tuiInputFiles
+            [formControl]="control"
+        />
+    </label>
+}
+ 
+<tui-files class="tui-space_top-1">
+    
+    <ng-container *tuiLet="loadedFiles$ | async as file">
+        @if(file){
+            <tui-file
+                [file]="file"
+                (remove)="removeFile()"
+            />
+        }
+    </ng-container>
+    <ng-container *tuiLet="failedFiles$ | async as file">
+        @if(file){
+            <tui-file
+                state="error"
+                [file]="file"
+                (remove)="removeFile()"
+            />
+        }
+    </ng-container>
+    <ng-container *tuiLet="loadingFiles$ | async as file">
+        @if(file) {
+            <tui-file
+                state="loading"
+                [file]="file"
+                (remove)="removeFile()"
+            />
+        }
+    </ng-container>
+</tui-files>

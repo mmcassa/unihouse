@@ -1,0 +1,58 @@
+<aside
+        [tuiNavigationAside]="expanded"
+    >
+        <header>
+            <button
+                iconStart="@tui.home"
+                tuiAsideItem
+                routerLink="/home"
+            >
+                <span tuiFade>Home</span>
+        </button>
+        </header>
+        @for (navRoute of navRoutes; track navRoute.name;) { 
+        @if (navRoute.list === undefined) {
+        <button
+            iconStart="{{navRoute.icon}}"
+            tuiAsideItem
+            routerLink="{{navRoute.link}}"
+        >
+            {{navRoute.name}}
+        </button>} @else {
+            <tui-aside-group
+        >
+            <button
+                iconStart="{{navRoute.icon}}"
+                iconEnd="@tui.chevron-down"
+                tuiAsideItem
+
+                (click)="navRoute.listexpanded = expanded && !navRoute.listexpanded"
+            >
+                {{navRoute.name}}
+            </button>
+            <ng-template>
+                <tui-data-list tuiDataListDropdownManager>
+                    @for (item of navRoute.items; track item.name;){
+                    <button tuiAsideItem routerLink="{{item.link}}">{{item.name}}</button>
+                    }
+                </tui-data-list>
+            </ng-template>
+        </tui-aside-group>
+        }
+        }
+        <footer>
+            <button
+                iconStart="@tui.star"
+                tuiAsideItem
+            >
+                Favorites
+            </button>
+            <button
+                tuiAsideItem
+                [iconStart]="expanded ? '@tui.chevron-left' : '@tui.chevron-right'"
+                (click)="expanded = !expanded"
+            >
+                {{ expanded ? 'Collapse' : 'Expand' }}
+            </button>
+        </footer>
+    </aside>

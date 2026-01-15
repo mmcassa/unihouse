@@ -1,0 +1,33 @@
+@if (link()) {
+    <button 
+        tuiLink
+        (click)="open_drawer()"
+        >
+        <ng-container *ngTemplateOutlet="content" />
+    </button>
+} @else {
+    <ng-container *ngTemplateOutlet="content" />
+}
+<ng-template #content>
+    @if (!loading){
+
+    <div tuiSubtitle>
+        <p>
+            @if (department() && position?.department && (position?.department ?? '').length > 0){
+                <tui-chip 
+                    appearance="custom"
+                    [style.background-color]="(position?.department ?? '') | tuiAutoColor" 
+                    [size]="size()"
+                >
+                    {{position?.department}}
+                </tui-chip>
+            }
+            {{position?.title}}
+            
+            @if(status() && position?.staged) {
+                <tui-badge [size]="'s'" appearance="warning" tuiStatus>Staged</tui-badge>
+            }
+        </p>
+    </div>
+    }
+</ng-template>

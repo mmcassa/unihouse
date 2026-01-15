@@ -1,0 +1,81 @@
+@if (employee()){
+<header tuiHeader>
+    <hgroup>
+        <h5 tuiTitle>
+            <p tuiSubtitle>ACCESS MANAGEMENT</p>
+            Employee Details
+
+        </h5>
+
+    </hgroup>
+    <hr/>
+</header>
+<section>
+    @if (emp){
+    <app-employee-actions [(employee)]="emp" />
+    }
+</section>
+<section>
+    <table class="personal">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>
+                    {{employee()?.id}}
+                </td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>
+                    <app-employee-label 
+                        [employee]="employee() ?? -1" 
+                        [link]="false" 
+                        [hint]="false" 
+                    />
+                </td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>
+                    <app-position-label 
+                        [id]="employee()?.positionid" 
+                    />
+                </td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>
+                    {{employee()?.username}}
+                </td>
+            </tr>
+            <tr>
+                <th>Security User ID</th>
+                <td>
+                    {{employee()?.secuserid}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <div class="w-100">
+        <app-employee-position-history-table 
+            [data]="history" 
+            [hide]="['employee']"
+            />
+    </div>
+</section>
+<section>
+    <div class="w-100">
+        <app-security-user-change-log-table 
+            [secuserid]="employee()?.secuserid" 
+            [hide]="['secuserid']" 
+        />
+    </div>
+</section>
+<footer>
+
+</footer>} @else {
+    No Employee specified
+}

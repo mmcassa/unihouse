@@ -1,0 +1,33 @@
+<form [formGroup]="form()">
+    @if (form().get(formControlName())){
+    <tui-textfield 
+        tuiChevron 
+        #textfield
+        iconStart="@tui.arrow-left-right"
+        [tuiTextfieldSize]="size()"
+        [content]="value && !textfield.focused() ? content : ''"
+        [stringify]="stringify"
+    >
+        <input
+            placeholder="Change type"
+            tuiSelect
+            formControlName="{{formControlName()}}"
+        />
+
+        <tui-data-list-wrapper
+            *tuiTextfieldDropdown
+            new
+            [items]="change_type_array"
+            [itemContent]="content"
+        />
+    <tui-error 
+        [error]="[] | tuiFieldError | async" 
+        formControlName="{{formControlName()}}"
+        />
+    </tui-textfield>
+    }
+</form>
+
+<ng-template #content let-type>
+    {{change_type(type)}}
+</ng-template>

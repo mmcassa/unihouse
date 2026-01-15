@@ -1,0 +1,36 @@
+form {
+    max-width: 350px;
+    tui-textfield {
+        margin: .4rem 0;
+    }
+
+}
+
+#button-designer-sandbox {
+    margin: 1rem 0;
+    padding: 2rem;
+    border: 1px var(--tui-border-normal) solid;
+    max-width: 700px;
+}
+
+#button-designer-container {
+    max-width: 700px;
+    padding-top: .2rem;
+}
+
+#button-designer-settings {
+    
+}
+
+svg {
+    background-color: transparent;
+}
+
+.color-item-circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 7px;
+    display: inline-block;
+    margin: 0 5px ;
+    
+}
