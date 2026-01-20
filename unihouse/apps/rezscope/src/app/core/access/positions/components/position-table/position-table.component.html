@@ -14,7 +14,7 @@
         (selected)="on_selected_updated($event);"
     >
         <ng-template [namedTemplate]="'title'" let-item>
-            <app-position-label [id]="item" [department]="false"/>
+            <app-position-label [id]="item" [department]="false" [status]="true"/>
         </ng-template>
         <ng-template [namedTemplate]="'description'" let-item>{{item.description}}</ng-template>
         <ng-template [namedTemplate]="'stafftype'" let-item>
