@@ -99,7 +99,7 @@ export class PositionDetailComponent extends AbstractPositionDetail {
       this._position.editing_title = false;
       this._positionForm = new FormGroup({
         title: new FormControl(this._position.title,{updateOn: 'blur',validators: [Validators.required,Validators.maxLength(100)]}),
-        code: new FormControl(this._position.code,{updateOn: 'blur',validators: [Validators.maxLength(10)]}),
+        code: new FormControl(this._position.code,{updateOn: 'blur',validators: [Validators.maxLength(20)]}),
         is_prostaff: new FormControl(this._position.is_prostaff),
         has_community: new FormControl(this._position.has_community),
         staged: new FormControl(this._position.staged),
