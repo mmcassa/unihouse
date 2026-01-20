@@ -109,7 +109,7 @@ export class StarrezAccessService {
   del_scheduled_changes(
     ids: number[]
   ): Observable<any> {
-    return this.http.post<any>(`0/sr/4/access/scheduled-changes/delete/`,{ params: add_filters_to_params({ids:ids}) });
+    return this.http.post<any>(`0/sr/4/access/scheduled-changes/delete/`,{"ids" : ids});
   }
 
   detect_new_scheduled_changes() {
