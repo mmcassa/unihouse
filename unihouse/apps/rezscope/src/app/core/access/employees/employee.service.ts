@@ -255,7 +255,7 @@ export class EmployeeService {
         switchMap((confirmed) => {
           if (confirmed) {
             // TODO: add data and make post
-            this.http.get<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/removeAccess/`)
+            return this.http.get<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/removeAccess/`)
               .pipe(
                 alertsPipe(this.alerts,
                   'Employee Access Removed',
@@ -284,7 +284,7 @@ export class EmployeeService {
         switchMap((confirmed) => {
           if (confirmed) {
             // TODO: add data and make post
-            this.http.get<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/restoreAccess/`)
+            return this.http.get<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/restoreAccess/`)
               .pipe(
                 alertsPipe(this.alerts,
                   'Employee Access Restored',
@@ -313,7 +313,7 @@ export class EmployeeService {
         switchMap((confirmed) => {
           if (confirmed) {
             // TODO: add data and make post
-            this.http.post<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/bot-user/`,null)
+            return this.http.post<EmployeeInterface>(`0/sr/4/access/users/${employee.id ?? -1}/bot-user/`,null)
               .pipe(
                 alertsPipe(this.alerts,
                   'Test user added',
