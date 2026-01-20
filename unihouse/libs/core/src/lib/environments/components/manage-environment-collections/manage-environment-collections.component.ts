@@ -41,7 +41,7 @@ export class ManageEnvironmentCollectionsComponent {
     });
   }
 
-  protected push_new_collection(collection: Collection|void) {
+  protected push_new_collection(collection: Collection|void|null) {
     if (collection == null ) return;
     this.collections.push(collection);
     this.adding_collection = false;
