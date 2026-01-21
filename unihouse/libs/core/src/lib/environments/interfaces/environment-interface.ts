@@ -13,6 +13,14 @@ export interface ExternalEnvironment {
   createdby?: number;
 }
 
+export interface ExternalEnvironmentAuth {
+  id: number;
+  extenvid: number;
+  userid?: number;
+  apikey: string;
+  username?: string;
+}
+
 export interface Collection {
   id: number;
   name: string;
