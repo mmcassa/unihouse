@@ -2,17 +2,26 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { add_filters_to_params } from '../http';
-import { ExternalEnvironment, ExternalEnvironmentType, Collection, CollectionEnvironment } from './interfaces/environment-interface';
+import { ExternalEnvironment, ExternalEnvironmentType, Collection, CollectionEnvironment, ExternalEnvironmentAuth } from './interfaces/environment-interface';
+import { DialogService } from '../dialogs';
+import { EnvironmentAuthCreateForm } from './components/environment-auth-create-form/environment-auth-create-form';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExtEnvironmentService {
-  private apiUrl = 'https://localhost/0/env/';  // Replace with your Django server URL
   http = inject(HttpClient);
+  private readonly dialog = inject(DialogService);
 
-  constructor() {}
+  open_environment_auth_create_form(environment:ExternalEnvironment) {
+    return this.dialog.openDialog(
+      EnvironmentAuthCreateForm,
+      'Create Environment Auth',
+      environment,
+      'm'
+    )
+  }
 
   getExternalEnvironments(
     filters?: any
@@ -24,6 +33,10 @@ export class ExtEnvironmentService {
   addExternalEnvironment(environment: ExternalEnvironment): Observable<ExternalEnvironment> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<ExternalEnvironment>(`0/env/`, environment, { headers });
+  }
+
+  create_external_environment_auth(ext_env_auth: Partial<ExternalEnvironmentAuth>) {
+    return this.http.post<ExternalEnvironmentAuth>(`0/env/auth/`,ext_env_auth,);
   }
 
   get_external_environment_types(): Observable<ExternalEnvironmentType[]> {

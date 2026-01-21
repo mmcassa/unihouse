@@ -11,3 +11,4 @@ export * from './components/environment-collection-dropdown/environment-collecti
 export * from './components/manage-environment-collections/manage-environment-collections.component';
 export * from './components/session-environment-dropdown/session-environment-dropdown.component';
 export * from './components/environment-selector';
+export * from './components/environment-auth-create-form/environment-auth-create-form';
