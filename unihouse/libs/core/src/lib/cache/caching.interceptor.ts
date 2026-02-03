@@ -20,16 +20,15 @@ export class CachingInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const forceRefresh = req.headers.get('X-Force-Refresh') === 'true';
 
-    if (req.method !== 'GET' || forceRefresh) {
-      return next.handle(req);
-    }
-
+    const cacheKey = req.urlWithParams;
     const cacheRule = CACHE_RULES.find(rule => rule.pattern.test(req.url));
     if (!cacheRule) {
       return next.handle(req);
     }
-
-    const cacheKey = req.urlWithParams;
+    if (req.method != 'GET') {
+      this.cache.delete(cacheKey);
+      return next.handle(req);
+    }
 
     // Return from cache if available
     const cached = this.cache.get<HttpResponse<any>>(cacheKey);
