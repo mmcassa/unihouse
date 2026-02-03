@@ -7,6 +7,6 @@ export interface CacheRule {
   
   export const CACHE_RULES: CacheRule[] = [
     { pattern: /0\/env\/type\/?$/, ttl: 60 * 60 * 1000 },
-    { pattern: /0\/sr\/[0-9]+\/access\/positions\/[0-9]+\/?$/, ttl: 1 * 60 * 1000 },
+    { pattern: /0\/sr\/[0-9]+\/access\/positions\/[0-9]+\/?$/, ttl: 1 * 10 * 1000 },
   ];
   
