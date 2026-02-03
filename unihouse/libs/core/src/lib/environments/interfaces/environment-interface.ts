@@ -11,6 +11,7 @@ export interface ExternalEnvironment {
   type: string;
   prod: boolean;
   createdby?: number;
+  user_has_auth?: boolean;
 }
 
 export interface ExternalEnvironmentAuth {
