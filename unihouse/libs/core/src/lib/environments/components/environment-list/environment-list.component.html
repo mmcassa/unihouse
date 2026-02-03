@@ -9,5 +9,21 @@
   <ng-template [namedTemplate]="'type'" let-item>
     {{item.type | environmentType }}
   </ng-template>
+  <ng-template [namedTemplate]="'actions'" let-item>
+    @if (item.user_has_auth == false){
+    <button tuiIconButton 
+      appearance="flat" 
+      size="xs"
+      [style.color]="'var(--tui-status-positive)'" 
+      iconStart="@tui.user-plus"
+      (click)="open_create_auth(item)"
+      tuiHint
+      tuiHintDirection="bottom-right"
+      tuiHintAppearance="dark">
+      <tui-hint *tuiHint>
+          <small>Add authentication</small>
+      </tui-hint>
+    </button>  }
+  </ng-template>
   </app-dynamic-table>
   
