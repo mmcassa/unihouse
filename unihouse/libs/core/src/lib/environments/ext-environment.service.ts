@@ -5,6 +5,7 @@ import { add_filters_to_params } from '../http';
 import { ExternalEnvironment, ExternalEnvironmentType, Collection, CollectionEnvironment, ExternalEnvironmentAuth } from './interfaces/environment-interface';
 import { DialogService } from '../dialogs';
 import { EnvironmentAuthCreateForm } from './components/environment-auth-create-form/environment-auth-create-form';
+import { AddEnvironmentFromComponent } from './components/add-environment-form/add-environment-form.component';
 
 
 @Injectable({
@@ -14,6 +15,15 @@ export class ExtEnvironmentService {
   http = inject(HttpClient);
   private readonly dialog = inject(DialogService);
 
+  open_add_environment_form() {
+    return this.dialog.openDialog(
+      AddEnvironmentFromComponent,
+      'New Environment',
+      null,
+      'm'
+    );
+  }
+  
   open_environment_auth_create_form(environment:ExternalEnvironment) {
     return this.dialog.openDialog(
       EnvironmentAuthCreateForm,
